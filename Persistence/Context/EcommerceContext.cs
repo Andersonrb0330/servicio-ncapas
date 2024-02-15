@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Context
 {
-    internal class EcommerceContext : DbContext
+    public class EcommerceContext : DbContext
     {
         public EcommerceContext(DbContextOptions<EcommerceContext> options) : base(options)
         {
@@ -13,5 +14,9 @@ namespace Persistence.Context
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
     }
 }
