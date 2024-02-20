@@ -1,40 +1,35 @@
-﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|https">
+﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|Default">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="WebApi/Controllers/WeatherForecastController.cs">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/WebApi/Controllers/ValuesController.cs" relfile="WebApi/Controllers/ValuesController.cs" line="27" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
+  </MultiItemStartupConfigurations>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Persistence/Configurations/EmpresaEntityConfiguration.cs">
     <Files>
-      <File FileName="Persistence/Context/EcommerceContext.cs" Line="10" Column="10" />
-      <File FileName="Domain/Producto.cs" Line="9" Column="12" />
-      <File FileName="WebApi/Program.cs" Line="7" Column="1" />
-      <File FileName="Domain/Empresa.cs" Line="9" Column="12" />
-      <File FileName="Domain/TipoProducto.cs" Line="10" Column="11" />
-      <File FileName="Domain/Usuario.cs" Line="9" Column="11" />
-      <File FileName="WebApi/Controllers/WeatherForecastController.cs" Line="6" Column="28" />
+      <File FileName="Persistence/Configurations/EmpresaEntityConfiguration.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EcommerceService">
-            <Node name="Core" expanded="True">
-              <Node name="Aplication" expanded="True" />
-            </Node>
-            <Node name="Infraestructure" expanded="True">
-              <Node name="Persistence">
-                <Node name="Dependencies" expanded="True">
-                  <Node name="PackageDependencies" expanded="True" />
-                </Node>
-                <Node name="Context" expanded="True" />
+            <Node name="Core">
+              <Node name="Aplication" expanded="True">
+                <Node name="Dtos" expanded="True" />
+                <Node name="Extensions" expanded="True" />
+                <Node name="Implementaciones" expanded="True" />
+                <Node name="Interfaces" expanded="True" />
               </Node>
             </Node>
-            <Node name="Presentation">
-              <Node name="WebApi">
-                <Node name="Dependencies" expanded="True">
-                  <Node name="PackageDependencies" expanded="True" />
-                </Node>
-                <Node name="Controllers" expanded="True">
-                  <Node name="WeatherForecastController.cs" selected="True" />
+            <Node name="Infraestructure">
+              <Node name="Persistence" expanded="True">
+                <Node name="Configurations" expanded="True">
+                  <Node name="EmpresaEntityConfiguration.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -43,7 +38,4 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
 </Properties>

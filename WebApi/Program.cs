@@ -1,14 +1,14 @@
+using Aplication.Extensions;
 using Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddPersistenceProject(builder.Configuration);
+builder.Services.AddApplicationProject();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddPersistenceProject(builder.Configuration);
 
 var app = builder.Build();
 
@@ -18,8 +18,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

@@ -12,7 +12,7 @@ namespace Persistence.Extensions
             services.AddDbContext<EcommerceContext>(
                 options => options.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
                 builder => builder.MigrationsAssembly(typeof(EcommerceContext).Assembly.FullName)));
-            services.AddScoped(provider => provider.GetService<EcommerceContext>());
+            services.AddScoped<IEcommerceContext>(provider => provider.GetService<EcommerceContext>());
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Context
 {
-    public class EcommerceContext : DbContext
+    public class EcommerceContext : DbContext, IEcommerceContext
     {
         public EcommerceContext(DbContextOptions<EcommerceContext> options) : base(options)
         {
