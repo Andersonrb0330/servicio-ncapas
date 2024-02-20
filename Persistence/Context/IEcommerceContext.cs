@@ -9,5 +9,6 @@ namespace Persistence.Context
         DbSet<TipoProducto> TipoProductos { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empresa> Empresas { get; set; }
+        int SaveChanges();
     }
 }

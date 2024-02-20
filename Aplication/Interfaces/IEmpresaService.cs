@@ -1,4 +1,5 @@
-﻿using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
+using Aplication.Dtos.Request;
 
 namespace Aplication.Interfaces
 {
@@ -7,6 +8,12 @@ namespace Aplication.Interfaces
 		List<EmpresaDto> ObtenerTodo();
 
 		EmpresaDto ObtenerPorId(int id);
+
+		int Crear(EmpresaParametroDto empresaParametroDto);
+
+		void Modificar(EmpresaParametroDto empresaParametroDto);
+
+		void Eliminar(int id);
 	}
-}
+} 
 

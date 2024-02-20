@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
 
-namespace Aplication.Dtos
+namespace Aplication.Dtos.Response
 {
     public class EmpresaDto
 	{
@@ -18,7 +18,7 @@ namespace Aplication.Dtos
     {
         public EmpresaProfile()
         {
-            CreateMap<TipoProducto, TipoProductoDto>();
+            CreateMap<Empresa, EmpresaDto>();
         }
     }
 }

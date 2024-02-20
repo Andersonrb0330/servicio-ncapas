@@ -1,4 +1,4 @@
-﻿using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
 using Domain;

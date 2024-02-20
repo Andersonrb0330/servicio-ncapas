@@ -18,5 +18,10 @@ namespace Persistence.Context
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
+
+        public override int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
     }
 }

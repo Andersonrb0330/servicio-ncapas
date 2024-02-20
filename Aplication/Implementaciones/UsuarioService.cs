@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
 using Domain;

@@ -1,4 +1,4 @@
-﻿using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
 
 namespace Aplication.Interfaces
 {

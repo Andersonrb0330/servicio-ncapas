@@ -1,46 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
+using Aplication.Dtos.Request;
 using Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
     [Route("api/empresas")]
     public class EmpresaController : Controller
     {
-
         private readonly IEmpresaService _empresaService;
 
-        public EmpresaController(IEmpresaService empresaService) {
-
+        public EmpresaController(IEmpresaService empresaService)
+        {
             _empresaService = empresaService;
         }
 
         [HttpGet]
-        public ActionResult<List<EmpresaDto>> GetTodoEmpresa() {
-
+        public ActionResult<List<EmpresaDto>> GetTodoEmpresa()
+        {
             List<EmpresaDto> empresaDto = _empresaService.ObtenerTodo();
-
             return Ok(empresaDto);
         }
 
 
         [HttpGet("{id}")]
-        public ActionResult<EmpresaDto> GetPorIdEmpresa(int id) {
-
+        public ActionResult<EmpresaDto> GetPorIdEmpresa(int id)
+        {
             EmpresaDto empresaDto = _empresaService.ObtenerPorId(id);
-
             return Ok(empresaDto);
-
         }
 
+        [HttpPost]
+        public ActionResult<int> PostCrearEmpresa(EmpresaParametroDto empresaParametroDto)
+        {
+            int id = _empresaService.Crear(empresaParametroDto);
+            return Ok(id);
+        }
 
+        [HttpPut("{id}")]
+        public ActionResult PutModificarEmpresa(int id, [FromBody] EmpresaParametroDto empresaParametroDto)
+        {
+            empresaParametroDto.Id = id;
+            _empresaService.Modificar(empresaParametroDto);
+            return Ok();
+        }
 
+        [HttpDelete("{id}")]
+        public ActionResult DeleteEliminarEmpresa(int id)
+        {
+            _empresaService.Eliminar(id);
+            return Ok();
+        }     
     }
 }
 

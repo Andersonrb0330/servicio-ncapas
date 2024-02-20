@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain;
 
-namespace Aplication.Dtos
+namespace Aplication.Dtos.Response
 {
     public class UsuarioDto
 	{

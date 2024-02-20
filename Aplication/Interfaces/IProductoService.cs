@@ -1,9 +1,8 @@
-﻿using System;
-using Aplication.Dtos;
+﻿using Aplication.Dtos.Response;
 
 namespace Aplication.Interfaces
 {
-	public interface IProductoService
+    public interface IProductoService
 	{
 		List<ProductoDto> ObtenerTodo();
 

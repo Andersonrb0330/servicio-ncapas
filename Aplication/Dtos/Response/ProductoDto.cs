@@ -1,10 +1,9 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain;
 
-namespace Aplication.Dtos
+namespace Aplication.Dtos.Response
 {
-	public class ProductoDto
+    public class ProductoDto
 	{
         public int Id { get; set; }
         public string Nombre { get; set; }
