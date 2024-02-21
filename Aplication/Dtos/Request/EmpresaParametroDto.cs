@@ -1,7 +1,6 @@
-﻿using System;
-namespace Aplication.Dtos.Request
+﻿namespace Aplication.Dtos.Request
 {
-	public class EmpresaParametroDto
+    public class EmpresaParametroDto
 	{
 
 		public int Id { get; set; }
@@ -12,3 +11,4 @@ namespace Aplication.Dtos.Request
 	}
 }
 
+ 

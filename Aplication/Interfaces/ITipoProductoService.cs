@@ -1,4 +1,5 @@
-﻿using Aplication.Dtos.Response;
+﻿using Aplication.Dtos.Request;
+using Aplication.Dtos.Response;
 
 namespace Aplication.Interfaces
 {
@@ -7,6 +8,12 @@ namespace Aplication.Interfaces
 		List<TipoProductoDto> ObtenerTodos();
 
 		TipoProductoDto ObtenerPorId(int id);
+
+		int Crear(TipoProductoParametroDto tipoProductoParametroDto);
+
+		void Modificar(TipoProductoParametroDto tipoProductoParametroDto);
+
+		void Eliminar(int id);
 	}
 }
 

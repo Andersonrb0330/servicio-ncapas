@@ -22,7 +22,6 @@ namespace WebApi.Controllers
             return Ok(empresaDto);
         }
 
-
         [HttpGet("{id}")]
         public ActionResult<EmpresaDto> GetPorIdEmpresa(int id)
         {

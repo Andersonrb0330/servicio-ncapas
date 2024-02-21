@@ -21,7 +21,7 @@ namespace Aplication.Dtos.Response
     {
         public ProductoProfile()
         {
-            CreateMap<TipoProducto, TipoProductoDto>();
+            CreateMap<Producto, ProductoDto>();
         }
     }
 

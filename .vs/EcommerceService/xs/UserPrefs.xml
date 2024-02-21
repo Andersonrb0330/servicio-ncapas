@@ -1,18 +1,22 @@
 ﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/WebApi/Controllers/ValuesController.cs" relfile="WebApi/Controllers/ValuesController.cs" line="27" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations>
-    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
-  </MultiItemStartupConfigurations>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Persistence/Configurations/EmpresaEntityConfiguration.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApi/Controllers/UsuarioController.cs">
     <Files>
-      <File FileName="Persistence/Configurations/EmpresaEntityConfiguration.cs" Line="1" Column="1" />
+      <File FileName="Aplication/Implementaciones/EmpresaService.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Interfaces/IEmpresaService.cs" Line="5" Column="2" />
+      <File FileName="WebApi/Controllers/ProductoController.cs" Line="1" Column="7" />
+      <File FileName="WebApi/Controllers/EmpresaController.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Dtos/Response/EmpresaDto.cs" Line="4" Column="26" />
+      <File FileName="Aplication/Dtos/Response/ProductoDto.cs" Line="5" Column="2" />
+      <File FileName="Aplication/Dtos/Response/TipoProductoDto.cs" Line="4" Column="35" />
+      <File FileName="Aplication/Dtos/Response/UsuarioDto.cs" Line="4" Column="35" />
+      <File FileName="Aplication/Interfaces/IProductoService.cs" Line="12" Column="1" />
+      <File FileName="Aplication/Interfaces/ITipoProductoService.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Interfaces/IUsuarioService.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Implementaciones/ProductoService.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Implementaciones/TipoProductoService.cs" Line="1" Column="31" />
+      <File FileName="Aplication/Implementaciones/UsuarioService.cs" Line="5" Column="27" />
+      <File FileName="WebApi/Controllers/TipoProductoController.cs" Line="1" Column="31" />
+      <File FileName="WebApi/Controllers/UsuarioController.cs" Line="1" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,16 +25,20 @@
             <Node name="Core">
               <Node name="Aplication" expanded="True">
                 <Node name="Dtos" expanded="True" />
-                <Node name="Extensions" expanded="True" />
                 <Node name="Implementaciones" expanded="True" />
                 <Node name="Interfaces" expanded="True" />
               </Node>
             </Node>
             <Node name="Infraestructure">
               <Node name="Persistence" expanded="True">
-                <Node name="Configurations" expanded="True">
-                  <Node name="EmpresaEntityConfiguration.cs" selected="True" />
-                </Node>
+                <Node name="Context" expanded="True" />
+                <Node name="Extensions" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Presentation">
+              <Node name="WebApi" expanded="True">
+                <Node name="Controllers" expanded="True" />
+                <Node name="Properties" expanded="True" />
               </Node>
             </Node>
           </Node>
@@ -38,4 +46,15 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Aplication/Implementaciones/EmpresaService.cs" relfile="Aplication/Implementaciones/EmpresaService.cs" line="35" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
+  </MultiItemStartupConfigurations>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

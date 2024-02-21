@@ -1,4 +1,5 @@
-﻿using Aplication.Dtos.Response;
+﻿using Aplication.Dtos.Request;
+using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,30 +12,46 @@ namespace WebApi.Controllers
     {
         private readonly IUsuarioService _usuarioService;
 
-        public UsuarioController(IUsuarioService usuarioService) {
-
+        public UsuarioController(IUsuarioService usuarioService)
+        {
             _usuarioService = usuarioService;
-
         }
 
         [HttpGet]
-        public IActionResult GetTodoUsuario() {
-
+        public IActionResult GetTodoUsuario()
+        {
             List<UsuarioDto> usuarioDto = _usuarioService.ObtenerTodo();
-
             return Ok(usuarioDto);
-
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPorIdUsuario(int id) {
-
+        public IActionResult GetPorIdUsuario(int id)
+        {
             UsuarioDto usuarioDto = _usuarioService.ObtenerPorId(id);
-
             return Ok(usuarioDto);
         }
 
+        [HttpPost]
+        public ActionResult<int> PostCrear(UsuarioParametroDto usuarioParametroDto)
+        {
+            int id = _usuarioService.Crear(usuarioParametroDto);
+            return id;
+        }
 
+        [HttpPut("{id}")]
+        public ActionResult<UsuarioDto> PutModificar(int id, [FromBody] UsuarioParametroDto usuarioParametroDto)
+        {
+            usuarioParametroDto.Id = id;
+            _usuarioService.Modificar(usuarioParametroDto);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<UsuarioDto> Delete(int id)
+        {
+            _usuarioService.Eliminar(id);
+            return Ok();
+        }
     }
 }
 

@@ -27,7 +27,6 @@ namespace Aplication.Implementaciones
 
             _ecommerceContext.Empresas.Add(empresa);
             _ecommerceContext.SaveChanges();
-
             return empresa.Id;
         }
 

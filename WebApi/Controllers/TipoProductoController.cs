@@ -1,4 +1,5 @@
-﻿using Aplication.Dtos.Response;
+﻿using Aplication.Dtos.Request;
+using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,24 +12,45 @@ namespace WebApi.Controllers
     {
         private readonly ITipoProductoService _tipoProductoService;
 
-        public TipoProductoController(ITipoProductoService tipoProductoService) {
-
+        public TipoProductoController(ITipoProductoService tipoProductoService)
+        {
             _tipoProductoService = tipoProductoService;
         }
 
         [HttpGet("{id}")]
-
-        public IActionResult GetPorId(int id)
+        public ActionResult<TipoProductoDto> GetPorId(int id)
         {
             TipoProductoDto tipo = _tipoProductoService.ObtenerPorId(id);
             return Ok(tipo);
         }
 
         [HttpGet]
-        public IActionResult GetObtenerTodos()
+        public ActionResult<List<TipoProductoDto>> GetObtenerTodos()
         {
             List<TipoProductoDto> tipoProductoDtos = _tipoProductoService.ObtenerTodos();
             return Ok(tipoProductoDtos);
+        }
+
+        [HttpPost]
+        public ActionResult<int> PostCrear(TipoProductoParametroDto tipoProductoParametroDto)
+        {
+            int id = _tipoProductoService.Crear(tipoProductoParametroDto);
+            return Ok(id);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<TipoProductoDto> PutModificar(int id, [FromBody] TipoProductoParametroDto tipoProductoParametroDto)
+        {
+            tipoProductoParametroDto.Id = id;
+            _tipoProductoService.Modificar(tipoProductoParametroDto);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<TipoProductoDto> Delete(int id)
+        {
+            _tipoProductoService.Eliminar(id);
+            return Ok();
         }
     }
 }
