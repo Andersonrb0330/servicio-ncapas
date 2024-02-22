@@ -10,6 +10,8 @@ namespace Aplication.Dtos.Request
         public int Stock { get; set; }
         public double Precio { get; set; }
 
+        public int IdTipoProducto { get; set; }
+
         public ProductoParametroDto()
 		{
 		}

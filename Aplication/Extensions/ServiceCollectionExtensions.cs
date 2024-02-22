@@ -16,6 +16,7 @@ namespace Aplication.Extensions
             services.AddTransient<IEmpresaService, EmpresaService>();
             services.AddTransient<IUsuarioService, UsuarioService>();
             services.AddTransient<IProductoService, ProductoService>();
+            services.AddTransient<IEmpleadoService, EmpleadoService>();
         }
     }
 }

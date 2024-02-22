@@ -22,11 +22,6 @@ namespace Aplication.Implementaciones
         {
             Usuario usuario = new Usuario
             {
-                Nombre = usuarioParametroDto.Nombre,
-                Apellido = usuarioParametroDto.Apellido,
-                Edad = usuarioParametroDto.Edad,
-                Telefono = usuarioParametroDto.Telefono,
-                FechaNacimiento = usuarioParametroDto.FechaNacimiento,
                 Email = usuarioParametroDto.Email,
                 Clave = usuarioParametroDto.Clave
             };
@@ -38,7 +33,7 @@ namespace Aplication.Implementaciones
 
         public void Eliminar(int id)
         {
-            Usuario usuario = _ecommerceContext.Usuarios.FirstOrDefault(u => u.Id  == id);
+            Usuario usuario = _ecommerceContext.Usuarios.FirstOrDefault(u => u.Id == id);
             if (usuario == null)
             {
                 throw new Exception($"No existe el Usuario con el ID: {id}");
@@ -55,12 +50,6 @@ namespace Aplication.Implementaciones
             {
                 throw new Exception($"NO existe el Usuario con este ID: {usuarioParametroDto.Id}");
             }
-
-            usuario.Nombre = usuarioParametroDto.Nombre;
-            usuario.Apellido = usuarioParametroDto.Apellido;
-            usuario.Edad = usuarioParametroDto.Edad;
-            usuario.Telefono = usuarioParametroDto.Telefono;
-            usuario.FechaNacimiento = usuarioParametroDto.FechaNacimiento;
             usuario.Email = usuarioParametroDto.Email;
             usuario.Clave = usuarioParametroDto.Clave;
 

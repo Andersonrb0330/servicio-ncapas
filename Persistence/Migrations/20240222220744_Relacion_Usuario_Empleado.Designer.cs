@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
@@ -10,9 +11,11 @@ using Persistence.Context;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(EcommerceContext))]
-    partial class EcommerceContextModelSnapshot : ModelSnapshot
+    [Migration("20240222220744_Relacion_Usuario_Empleado")]
+    partial class Relacion_Usuario_Empleado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

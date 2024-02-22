@@ -15,29 +15,6 @@ namespace Persistence.Configurations
             builder.ToTable("Usuario");
             builder.HasKey(e => e.Id);
 
-            builder.Property(e => e.Nombre)
-                .HasColumnName("Nombre")
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            builder.Property(e => e.Apellido)
-                .HasColumnName("Apellido")
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            builder.Property(e => e.Edad)
-                .HasColumnName("Edad")
-                .IsRequired(); // IsRequired por defecto es TRUE, este o no este  la palabra IsRequired /  caso contrario IsRequired(false)
-
-            builder.Property(e => e.Telefono)
-                .HasColumnName("Telefono")
-                .HasMaxLength(20)
-                .IsUnicode(false);
-
-            builder.Property(e => e.FechaNacimiento)
-                .HasColumnName("FechaNacimiento")
-                .HasColumnType("date");
-
             builder.Property(e => e.Email)
                 .HasColumnName("Email")
                 .HasMaxLength(100) 
@@ -47,6 +24,10 @@ namespace Persistence.Configurations
                 .HasColumnName("Clave")
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
+            builder.HasOne(u => u.Empleado)
+                .WithMany()
+                .HasForeignKey(u => u.IdEmpleado);
         }
     }
 }

@@ -14,17 +14,19 @@ namespace Aplication.Dtos.Response
         public string Email { get; set; }
         public string Clave { get; set; }
 
+        public EmpleadoDto Empleado { get; set; }
+
         public UsuarioDto()
 		{
 		}
-        
+       
     }
 
     public class UsuarioProfile : Profile
     {
         public UsuarioProfile()
         {
-            CreateMap<Usuario, UsuarioDto>();
+            CreateMap<Empleado, UsuarioDto>();
         }
     }
 }

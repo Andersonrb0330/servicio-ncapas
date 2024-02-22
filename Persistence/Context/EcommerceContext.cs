@@ -13,6 +13,7 @@ namespace Persistence.Context
         public DbSet<TipoProducto> TipoProductos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Empresa> Empresas { get; set; }
+        public DbSet<Empleado> Empleados { get ; set ; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -14,6 +14,8 @@ namespace Aplication.Interfaces
 		void Modificar(UsuarioParametroDto usuarioParametroDto);
 
 		void Eliminar(int id);
+
+	
 	}
 }
 

@@ -3,6 +3,7 @@ using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
 namespace Aplication.Implementaciones
@@ -26,7 +27,8 @@ namespace Aplication.Implementaciones
                 Descripcion = productoParametroDto.Descripcion,
                 Estado = productoParametroDto.Estado,
                 Precio = productoParametroDto.Precio,
-                Stock  = productoParametroDto.Stock  
+                Stock  = productoParametroDto.Stock ,
+                IdTipoProducto = productoParametroDto.IdTipoProducto
             };
 
             _ecommerceContext.Productos.Add(producto);
@@ -59,20 +61,25 @@ namespace Aplication.Implementaciones
             producto.Estado = productoParametroDto.Estado;
             producto.Precio = productoParametroDto.Precio;
             producto.Stock  = productoParametroDto.Stock;
+            producto.IdTipoProducto = productoParametroDto.IdTipoProducto;
                                             
             _ecommerceContext.SaveChanges();
         }
 
         public ProductoDto ObtenerPorId(int id)
         {
-            Producto producto = _ecommerceContext.Productos.FirstOrDefault(p => p.Id == id);
+            Producto producto = _ecommerceContext.Productos
+                .Include(p => p.TipoProducto)
+                .FirstOrDefault(p => p.Id == id);
             ProductoDto productoDto = _mapper.Map<ProductoDto>(producto);
             return productoDto;
         }
 
         public List<ProductoDto> ObtenerTodo()
         {
-            List<Producto> productos = _ecommerceContext.Productos.ToList();
+            List<Producto> productos = _ecommerceContext.Productos
+                .Include(p => p.TipoProducto)
+                .ToList();
             List<ProductoDto> productoDto = _mapper.Map<List<ProductoDto>>(productos);
             return productoDto;
         }

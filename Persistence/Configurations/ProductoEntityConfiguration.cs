@@ -1,11 +1,10 @@
-﻿using System;
-using Domain;
+﻿using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configurations
 {
-	public class ProductoEntityConfiguration : IEntityTypeConfiguration<Producto>
+    public class ProductoEntityConfiguration : IEntityTypeConfiguration<Producto>
 	{
 		public ProductoEntityConfiguration()
 		{
@@ -38,6 +37,13 @@ namespace Persistence.Configurations
                 .HasColumnName("Precio")
                 .HasColumnType("decimal(18, 2)") // En total 18 digitos pero 2 son decimales
                 .IsRequired();
+
+            builder.Property(e => e.IdTipoProducto)
+                .HasColumnName("IdTipoProducto");
+
+            builder.HasOne(e => e.TipoProducto)
+                .WithMany(e => e.Productos)
+                .HasForeignKey(e => e.IdTipoProducto);
         }
     }
 }
