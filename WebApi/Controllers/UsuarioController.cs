@@ -52,6 +52,20 @@ namespace WebApi.Controllers
             _usuarioService.Eliminar(id);
             return Ok();
         }
+
+        [HttpPost("login")]
+        public ActionResult<bool> PostLogin(UsuarioParametroDto usuarioParametroDto)
+        {
+            bool logeo = _usuarioService.Login(usuarioParametroDto);
+            return logeo;
+        }
+
+        [HttpPost("login/info")]
+        public ActionResult<EmpleadoDto> PostLoginInfo(UsuarioParametroDto usuarioParametroDto)
+        {
+            EmpleadoDto empleadoDto = _usuarioService.LoginInfo(usuarioParametroDto);
+            return Ok(empleadoDto);
+        }
     }
 }
 

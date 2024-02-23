@@ -15,6 +15,10 @@ namespace Aplication.Interfaces
 
 		void Eliminar(int id);
 
+		bool Login(UsuarioParametroDto usuarioParametroDto);
+
+		EmpleadoDto LoginInfo(UsuarioParametroDto usuarioParametroDto);
+
 	
 	}
 }

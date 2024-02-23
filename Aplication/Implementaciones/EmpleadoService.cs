@@ -46,8 +46,7 @@ namespace Aplication.Implementaciones
                 Edad = empleadoParametroDto.Edad,
                 Dni  = empleadoParametroDto.Dni,
                 Telefono = empleadoParametroDto.Telefono,
-                IdEmpresa = empleadoParametroDto.IdEmpresa
-                
+                IdEmpresa = empleadoParametroDto.IdEmpresa                
             };
 
             _ecommerceContext.Empleados.Add(empleado);
