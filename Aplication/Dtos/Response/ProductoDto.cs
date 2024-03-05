@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain;
+using Domain.Entity;
 
 namespace Aplication.Dtos.Response
 {

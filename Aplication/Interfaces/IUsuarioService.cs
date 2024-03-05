@@ -18,8 +18,6 @@ namespace Aplication.Interfaces
 		bool Login(UsuarioParametroDto usuarioParametroDto);
 
 		EmpleadoDto LoginInfo(UsuarioParametroDto usuarioParametroDto);
-
-	
 	}
 }
 

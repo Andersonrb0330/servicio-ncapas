@@ -20,8 +20,8 @@ namespace WebApi.Controllers
         [HttpGet]
         public ActionResult<List<ProductoDto>> GetObtenerTodo()
         {
-            List<ProductoDto> productoDto = _productoService.ObtenerTodo();
-            return productoDto;
+            List<ProductoDto> productosDto = _productoService.ObtenerTodo();
+            return productosDto;
         }
 
         [HttpGet("{id}")]

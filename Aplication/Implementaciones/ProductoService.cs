@@ -2,25 +2,52 @@
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
-using Domain;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Context;
+using Domain.Entity;
+using Domain.Repositories;
 
 namespace Aplication.Implementaciones
 {
     public class ProductoService : IProductoService
 	{
-        private readonly IEcommerceContext _ecommerceContext;
+        private readonly IProductoRepository _productoRepository;
+        private readonly ITipoProductoRepository _tipoProductoRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-		public ProductoService(IEcommerceContext ecommerceContext, IMapper mapper)
+		public ProductoService(
+            IProductoRepository productoRepository,
+            ITipoProductoRepository tipoProductoRepository,
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
 		{
-            _ecommerceContext = ecommerceContext;
+            _productoRepository = productoRepository;
+            _tipoProductoRepository = tipoProductoRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
 		}
 
+        public List<ProductoDto> ObtenerTodo()
+        {
+            List<Producto> productos = _productoRepository.Get();
+            List<ProductoDto> productoDto = _mapper.Map<List<ProductoDto>>(productos);
+            return productoDto;
+        }
+
+        public ProductoDto ObtenerPorId(int id)
+        {
+            Producto producto = _productoRepository.GetById(id);
+            ProductoDto productoDto = _mapper.Map<ProductoDto>(producto);
+            return productoDto;
+        }
+
         public int Crear(ProductoParametroDto productoParametroDto)
         {
+            bool existeTipoProducto = _tipoProductoRepository.VerificarTipoProducto(productoParametroDto.IdTipoProducto);
+            if (existeTipoProducto == false)
+            {
+                throw new Exception($"El ID {productoParametroDto.IdTipoProducto} del Tipo Producto no existe");
+            }
+
             Producto producto = new Producto
             {
                 Nombre = productoParametroDto.Nombre,
@@ -31,26 +58,14 @@ namespace Aplication.Implementaciones
                 IdTipoProducto = productoParametroDto.IdTipoProducto
             };
 
-            _ecommerceContext.Productos.Add(producto);
-            _ecommerceContext.SaveChanges();
+            _productoRepository.Create(producto);
+            _unitOfWork.SaveChanges();
             return producto.Id;
-        }
-
-        public void Eliminar(int id)
-        {
-            Producto producto = _ecommerceContext.Productos.FirstOrDefault(p => p.Id == id);
-            if (producto == null)
-            {
-                throw new Exception($"NO existe Producto con este ID: {id}");
-            }
-
-            _ecommerceContext.Productos.Remove(producto);
-            _ecommerceContext.SaveChanges();
         }
 
         public void Modificar(ProductoParametroDto productoParametroDto)
         {
-            Producto producto = _ecommerceContext.Productos.FirstOrDefault(p => p.Id == productoParametroDto.Id);
+            Producto producto = _productoRepository.GetById(productoParametroDto.Id);
             if (producto == null)
             {
                 throw new Exception($"NO existe Producto con este ID: {productoParametroDto. Id}");
@@ -62,26 +77,19 @@ namespace Aplication.Implementaciones
             producto.Precio = productoParametroDto.Precio;
             producto.Stock  = productoParametroDto.Stock;
             producto.IdTipoProducto = productoParametroDto.IdTipoProducto;
-                                            
-            _ecommerceContext.SaveChanges();
+
+            _unitOfWork.SaveChanges();
         }
 
-        public ProductoDto ObtenerPorId(int id)
+        public void Eliminar(int id)
         {
-            Producto producto = _ecommerceContext.Productos
-                .Include(p => p.TipoProducto)
-                .FirstOrDefault(p => p.Id == id);
-            ProductoDto productoDto = _mapper.Map<ProductoDto>(producto);
-            return productoDto;
-        }
-
-        public List<ProductoDto> ObtenerTodo()
-        {
-            List<Producto> productos = _ecommerceContext.Productos
-                .Include(p => p.TipoProducto)
-                .ToList();
-            List<ProductoDto> productoDto = _mapper.Map<List<ProductoDto>>(productos);
-            return productoDto;
+            Producto producto = _productoRepository.GetById(id);
+            if (producto == null)
+            {
+                throw new Exception($"NO existe Producto con este ID: {id}");
+            }
+            _productoRepository.Delete(producto);
+            _unitOfWork.SaveChanges();
         }
     }
 }

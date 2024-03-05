@@ -7,23 +7,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Implementaciones\" />
-    <None Remove="Dtos\" />
     <None Remove="Extensions\" />
-    <None Remove="Dtos\Response\" />
-    <None Remove="Dtos\Request\" />
+    <None Remove="Dtos\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Implementaciones\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Dtos\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Dtos\Response\" />
-    <Folder Include="Dtos\Request\" />
+    <Folder Include="Dtos\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />

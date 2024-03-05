@@ -1,21 +1,40 @@
-﻿using Aplication.Dtos.Request;
+﻿    using Aplication.Dtos.Request;
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
-using Domain;
-using Persistence.Context;
+using Domain.Entity;
+using Domain.Repositories;
 
 namespace Aplication.Implementaciones
 {
     public class TipoProductoService : ITipoProductoService
     {
-        private readonly IEcommerceContext _ecommerceContext;
+        private readonly ITipoProductoRepository _tipoProductoRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-		public TipoProductoService(IEcommerceContext ecommerceContext, IMapper mapper)
+		public TipoProductoService(
+            ITipoProductoRepository tipoProductoRepository,
+            IUnitOfWork unitOfWork, 
+            IMapper mapper)
 		{
-            _ecommerceContext = ecommerceContext;
+            _tipoProductoRepository = tipoProductoRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+
+        public List<TipoProductoDto> ObtenerTodos()
+        {
+            List<TipoProducto> tipoProductos = _tipoProductoRepository.Get();
+            List<TipoProductoDto> tipoProductoDto = _mapper.Map<List<TipoProductoDto>>(tipoProductos);
+            return tipoProductoDto;
+        }
+
+        public TipoProductoDto ObtenerPorId(int id)
+        {
+            TipoProducto tipoProducto = _tipoProductoRepository.GetById(id);
+            TipoProductoDto tipoProductoDto = _mapper.Map<TipoProductoDto>(tipoProducto);
+            return tipoProductoDto;
         }
 
         public int Crear(TipoProductoParametroDto tipoProductoParametroDto)
@@ -24,48 +43,32 @@ namespace Aplication.Implementaciones
             {
                Nombre = tipoProductoParametroDto.Nombre,
             };
-
-            _ecommerceContext.TipoProductos.Add(tipoProducto);
-            _ecommerceContext.SaveChanges();
+            _tipoProductoRepository.Create(tipoProducto);
+            _unitOfWork.SaveChanges();
             return tipoProducto.Id;
-        }
-
-        public void Eliminar(int id)
-        {
-            TipoProducto tipoProducto = _ecommerceContext.TipoProductos.FirstOrDefault(tp => tp.Id == id);
-            if (tipoProducto == null)
-            {
-                throw new Exception($"NO existe el Tipo Producto con este Id: {id}");
-            }
-
-            _ecommerceContext.TipoProductos.Remove(tipoProducto);
-            _ecommerceContext.SaveChanges();
         }
 
         public void Modificar(TipoProductoParametroDto tipoProductoParametroDto)
         {
-            TipoProducto tipoProducto = _ecommerceContext.TipoProductos.FirstOrDefault(tp => tp.Id == tipoProductoParametroDto.Id);
+            TipoProducto tipoProducto = _tipoProductoRepository.GetById(tipoProductoParametroDto.Id);
             if (tipoProducto == null)
             {
                 throw new Exception($"NO existe el Tipo Producto con este Id: {tipoProductoParametroDto.Id}");
             }
-
             tipoProducto.Nombre = tipoProductoParametroDto.Nombre;
-            _ecommerceContext.SaveChanges();
+
+            _unitOfWork.SaveChanges();
         }
 
-        public TipoProductoDto ObtenerPorId(int id)
+        public void Eliminar(int id)
         {
-            TipoProducto tipoProducto = _ecommerceContext.TipoProductos.FirstOrDefault(tp => tp.Id == id);
-            TipoProductoDto tipoProductoDto = _mapper.Map<TipoProductoDto>(tipoProducto);
-            return tipoProductoDto;
-        }
-
-        public List<TipoProductoDto> ObtenerTodos()
-        {
-            List<TipoProducto> tipoProductos = _ecommerceContext.TipoProductos.ToList();
-            List<TipoProductoDto> tipoProductoDto = _mapper.Map<List<TipoProductoDto>>(tipoProductos);
-            return tipoProductoDto;
+            TipoProducto tipoProducto = _tipoProductoRepository.GetById(id);
+            if (tipoProducto == null)
+            {
+                throw new Exception($"NO existe el Tipo Producto con este Id: {id}");
+            }
+            _tipoProductoRepository.Delete(tipoProducto);
+            _unitOfWork.SaveChanges();
         }
     }
 }

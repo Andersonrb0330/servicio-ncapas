@@ -1,10 +1,9 @@
-﻿using System;
-using Aplication.Dtos.Request;
+﻿using Aplication.Dtos.Request;
 using Aplication.Dtos.Response;
 
 namespace Aplication.Interfaces
 {
-	public interface IEmpleadoService
+    public interface IEmpleadoService
 	{
 		List<EmpleadoDto> Get();
 

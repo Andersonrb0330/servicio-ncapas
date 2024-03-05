@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrear(UsuarioParametroDto usuarioParametroDto)
+        public ActionResult<int> PostCrear([FromBody] UsuarioParametroDto usuarioParametroDto)
         {
             int id = _usuarioService.Crear(usuarioParametroDto);
             return id;

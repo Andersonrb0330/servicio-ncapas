@@ -2,59 +2,62 @@
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
-using Domain;
-using Microsoft.EntityFrameworkCore;
-using Persistence.Context;
+using Domain.Entity;
+using Domain.Repositories;
 
 namespace Aplication.Implementaciones
 {
     public class UsuarioService : IUsuarioService
     {
-        private readonly IEcommerceContext _ecommerceContext;
+        private readonly IUsuarioRepository _usuarioRepository;
+        private readonly IEmpleadoRepository _empleadoRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public UsuarioService(IEcommerceContext ecommerceContext, IMapper mapper)
+        public UsuarioService(
+            IUsuarioRepository usuarioRepository,        
+            IEmpleadoRepository  empleadoRepository,
+            IUnitOfWork unitOfWork,
+            IMapper mapper)
         {
-            _ecommerceContext = ecommerceContext;
+            _usuarioRepository = usuarioRepository;
+            _empleadoRepository = empleadoRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public bool Login(UsuarioParametroDto usuarioParametroDto)
+        public List<UsuarioDto> ObtenerTodo()
         {
-            bool existeUsuario = _ecommerceContext.Usuarios
-                .Any(u => u.Email == usuarioParametroDto.Email && u.Clave == usuarioParametroDto.Clave);
-                                    
-            //bool resultado = usuario != null ? true : false; //Operaciòn ternaria
-            return existeUsuario;
+            List<Usuario> usuarios = _usuarioRepository.Get();
+            List<UsuarioDto> usuarioDto = _mapper.Map<List<UsuarioDto>>(usuarios);
+            return usuarioDto;
         }
 
-        public EmpleadoDto LoginInfo(UsuarioParametroDto usuarioParametroDto)
+        public UsuarioDto ObtenerPorId(int id)
         {
-            Usuario usuario = _ecommerceContext.Usuarios
-                            .Include(u => u.Empleado)
-                            .FirstOrDefault(u => u.Email == usuarioParametroDto.Email && u.Clave == usuarioParametroDto.Clave);
-            if (usuario == null)
-                return null;
-
-            EmpleadoDto empleadoDto = _mapper.Map<EmpleadoDto>(usuario.Empleado);
-            return empleadoDto;
+            Usuario usuario = _usuarioRepository.GetById(id);
+            UsuarioDto usuarioDto = _mapper.Map<UsuarioDto>(usuario);
+            return usuarioDto;
         }
 
         public int Crear(UsuarioParametroDto usuarioParametroDto)
         {
-            bool existeEmail =  _ecommerceContext.Usuarios 
-                .Any(u => u.Email == usuarioParametroDto.Email);
+            bool existeEmail = _usuarioRepository.VerificarEmail(usuarioParametroDto.Email);
             if (existeEmail == true)
             {
                 throw new Exception("El Correo ya existe");
             }
 
-            bool existeUsuarioIdEmpleado = _ecommerceContext.Usuarios
-                //any sirve para verificar si existe o no == tru o false
-                    .Any(u => u.IdEmpleado  == usuarioParametroDto.IdEmpleado);
-            if (existeUsuarioIdEmpleado == true)
+            bool existeUsuarioEmpleado = _usuarioRepository.VerificarEmpleadoUsuario(usuarioParametroDto.IdEmpleado);
+            if (existeUsuarioEmpleado == true)
             {
                 throw new Exception("El empleado ya tiene un usuario");
+            }
+
+            bool existeEmpleado = _empleadoRepository.ExisteEmpleado(usuarioParametroDto.IdEmpleado);
+            if (existeEmpleado == false)
+            {
+                throw new Exception("El emplado no existe");
             }
 
             Usuario usuario = new Usuario
@@ -64,26 +67,14 @@ namespace Aplication.Implementaciones
                 IdEmpleado = usuarioParametroDto.IdEmpleado
             };
 
-            _ecommerceContext.Usuarios.Add(usuario);
-            _ecommerceContext.SaveChanges();
+            _usuarioRepository.Create(usuario);
+            _unitOfWork.SaveChanges();
             return usuario.Id;
-        }
-
-        public void Eliminar(int id)
-        {
-            Usuario usuario = _ecommerceContext.Usuarios.FirstOrDefault(u => u.Id == id);
-            if (usuario == null)
-            {
-                throw new Exception($"No existe el Usuario con el ID: {id}");
-            }
-
-            _ecommerceContext.Usuarios.Remove(usuario);
-            _ecommerceContext.SaveChanges();
         }
 
         public void Modificar(UsuarioParametroDto usuarioParametroDto)
         {
-            Usuario usuario = _ecommerceContext.Usuarios.FirstOrDefault(u => u.Id == usuarioParametroDto.Id);
+            Usuario usuario = _usuarioRepository.GetById(usuarioParametroDto.Id);
             if (usuario == null)
             {
                 throw new Exception($"NO existe el Usuario con este ID: {usuarioParametroDto.Id}");
@@ -92,25 +83,36 @@ namespace Aplication.Implementaciones
             usuario.Clave = usuarioParametroDto.Clave;
             usuario.IdEmpleado = usuarioParametroDto.IdEmpleado;
 
-            _ecommerceContext.SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
-        public UsuarioDto ObtenerPorId(int id)
+        public void Eliminar(int id)
         {
-            Usuario usuario = _ecommerceContext.Usuarios
-                .Include(u => u.Empleado)
-                .FirstOrDefault(u => u.Id == id);
-            UsuarioDto usuarioDto = _mapper.Map<UsuarioDto>(usuario);
-            return usuarioDto;
+            Usuario usuario = _usuarioRepository.GetById(id);
+            if (usuario == null)
+            {
+                throw new Exception($"No existe el Usuario con el ID: {id}");
+            }
+            _usuarioRepository.Delete(usuario);
+            _unitOfWork.SaveChanges();
         }
 
-        public List<UsuarioDto> ObtenerTodo()
+        public bool Login(UsuarioParametroDto usuarioParametroDto)
         {
-            List<Usuario> usuarios = _ecommerceContext.Usuarios
-                .Include(e => e.Empleado)
-                .ToList();
-            List<UsuarioDto> usuarioDto = _mapper.Map<List<UsuarioDto>>(usuarios);
-            return usuarioDto;
+            bool existeUsuario = _usuarioRepository.Login(usuarioParametroDto.Email, usuarioParametroDto.Clave);                                   
+            //bool resultado = usuario != null ? true : false; //Operaciòn ternaria
+            return existeUsuario;
+        }
+
+        public EmpleadoDto LoginInfo(UsuarioParametroDto usuarioParametroDto)
+        {
+            Usuario usuarioinfo = _usuarioRepository.LoginInfo(usuarioParametroDto.Email,
+                                                               usuarioParametroDto.Clave);
+            if (usuarioinfo == null)
+                return null;
+
+            EmpleadoDto empleadoDto = _mapper.Map<EmpleadoDto>(usuarioinfo.Empleado);
+            return empleadoDto;
         }
 
     }
