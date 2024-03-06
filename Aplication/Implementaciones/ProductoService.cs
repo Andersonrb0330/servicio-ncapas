@@ -1,4 +1,4 @@
-﻿using Aplication.Dtos.Request;
+﻿ using Aplication.Dtos.Request;
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
@@ -10,18 +10,18 @@ namespace Aplication.Implementaciones
     public class ProductoService : IProductoService
 	{
         private readonly IProductoRepository _productoRepository;
-        private readonly ITipoProductoRepository _tipoProductoRepository;
+        private readonly ITipoProductoRepository _tipoProductoRepository;        
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-		public ProductoService(
+        public ProductoService(
             IProductoRepository productoRepository,
             ITipoProductoRepository tipoProductoRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper)
 		{
             _productoRepository = productoRepository;
-            _tipoProductoRepository = tipoProductoRepository;
+            _tipoProductoRepository = tipoProductoRepository;        
             _unitOfWork = unitOfWork;
             _mapper = mapper;
 		}
@@ -90,6 +90,31 @@ namespace Aplication.Implementaciones
             }
             _productoRepository.Delete(producto);
             _unitOfWork.SaveChanges();
+        }
+
+        public PaginacionDto<ProductoDto> ObtenerProductosPaginados(FiltroProductoParametroDto filtroProductoParametroDto)
+        {
+            IQueryable<Producto> consulta = _productoRepository.GetQueryable();
+            if (!string.IsNullOrWhiteSpace(filtroProductoParametroDto.Nombre))
+            {
+                consulta = consulta.Where(p => p.Nombre.Contains(filtroProductoParametroDto.Nombre));
+            }
+
+            int totalProductos = consulta.Count();
+            // Obtener el totoal de paginas Math.Ceiling 
+            int totalPages = (int)Math.Ceiling((double)totalProductos / filtroProductoParametroDto.Limite);
+            var excluirElementos  = filtroProductoParametroDto.Limite * filtroProductoParametroDto.Pagina;
+            var productosPaginados = _productoRepository.GetPaginado(consulta, filtroProductoParametroDto.Limite, excluirElementos);
+            var productosDto = _mapper.Map<List<ProductoDto>>(productosPaginados);
+            var paginacionDto = new PaginacionDto<ProductoDto>
+            {
+                TotalItems = totalProductos,
+                PaginaActual = filtroProductoParametroDto.Pagina + 1,
+                TotalPaginas = totalPages,
+                Items = productosDto
+            };
+
+            return paginacionDto;
         }
     }
 }

@@ -1,7 +1,6 @@
-﻿using System;
-namespace Aplication.Dtos.Request
+﻿namespace Aplication.Dtos.Request
 {
-	public class ProductoParametroDto
+    public class ProductoParametroDto
 	{
         public int Id { get; set; }
         public string Nombre { get; set; }

@@ -7,14 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
-    [Route("api/producto")]
+    [Route("api/productos")]
     public class ProductoController : Controller
     {
         private readonly IProductoService _productoService;
-
+       
         public ProductoController(IProductoService productoService)
         {
             _productoService = productoService;
+        }
+
+        [HttpPost("paginado")]
+        public ActionResult<PaginacionDto<ProductoDto>> GetProductosPaginados([FromBody] FiltroProductoParametroDto filtroProductoParametroDto)
+        {
+            PaginacionDto<ProductoDto> productosPaginados = _productoService.ObtenerProductosPaginados(filtroProductoParametroDto);
+            return Ok(productosPaginados);
         }
 
         [HttpGet]
@@ -32,7 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrear(ProductoParametroDto productoParametroDto)
+        public ActionResult<int> PostCrear([FromBody] ProductoParametroDto productoParametroDto)
         {
             int id = _productoService.Crear(productoParametroDto);
             return Ok(id);
@@ -52,8 +59,6 @@ namespace WebApi.Controllers
             _productoService.Eliminar(id);
             return Ok();
         }
-
-        
     }
 }
 

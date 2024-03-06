@@ -6,14 +6,14 @@ using Persistence.Context;
 namespace Persistence.Repositories
 {
     public class ProductoRepository : IProductoRepository
-	{
+    {
         private readonly IEcommerceContext _ecommerceContext;
 
-		public ProductoRepository(
+        public ProductoRepository(
             IEcommerceContext ecommerceContext)
-		{
+        {
             _ecommerceContext = ecommerceContext;
-		}
+        }
 
         public List<Producto> Get()
         {
@@ -39,6 +39,21 @@ namespace Persistence.Repositories
         public void Delete(Producto producto)
         {
             _ecommerceContext.Productos.Remove(producto);
+        }
+
+        public List<Producto> GetPaginado(IQueryable<Producto> queryable, int limite, int pagina)
+        {
+            return queryable
+                    .OrderBy(p => p.Id)
+                    .Skip(pagina)
+                    .Take(limite)
+                    .ToList();
+        }
+
+        public IQueryable<Producto> GetQueryable()
+        {
+            IQueryable<Producto> producto = _ecommerceContext.Productos.AsQueryable();
+            return producto;
         }
     }
 }

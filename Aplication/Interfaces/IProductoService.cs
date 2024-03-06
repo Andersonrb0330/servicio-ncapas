@@ -6,14 +6,11 @@ namespace Aplication.Interfaces
     public interface IProductoService
 	{
 		List<ProductoDto> ObtenerTodo();
-
 		ProductoDto ObtenerPorId(int id);
-
 		int Crear(ProductoParametroDto productoParametroDto);
-
 		void Modificar(ProductoParametroDto productoParametroDto);
-
 		void Eliminar(int id);
-	} 
+        PaginacionDto<ProductoDto> ObtenerProductosPaginados(FiltroProductoParametroDto filtroProductoParametroDto);
+    } 
 }
 

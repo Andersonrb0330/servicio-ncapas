@@ -8,6 +8,8 @@ namespace Domain.Repositories
 		Producto GetById(int id);
 		void Create(Producto producto);
 		void Delete(Producto producto);
-	}
+        List<Producto> GetPaginado(IQueryable<Producto> queryable, int limite, int pagina);
+		IQueryable<Producto> GetQueryable();
+    }
 }
 
