@@ -97,6 +97,38 @@ namespace Aplication.Implementaciones
             _empleadoRepository.Delete(empleado);
             _unitOfWork.SaveChanges();
         }
+
+        public PaginacionDto<EmpleadoDto> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
+        {
+            IQueryable<Empleado> consulta = _empleadoRepository.GetQueryable();
+            if (!string.IsNullOrWhiteSpace(filtroEmpleadoParametroDto.Nombre))
+            {
+                consulta = consulta.Where(e => e.Nombre.Contains(filtroEmpleadoParametroDto.Nombre));
+            }
+            if (!string.IsNullOrWhiteSpace(filtroEmpleadoParametroDto.Apellido))
+            {
+                consulta = consulta.Where(e => e.Apellido.Contains(filtroEmpleadoParametroDto.Apellido));
+            }
+            if (filtroEmpleadoParametroDto.Edad.HasValue)
+            {
+                consulta = consulta.Where(p => p.Edad == filtroEmpleadoParametroDto.Edad);
+            }
+
+            int totalEmpleados = consulta.Count();
+            // Obtener el totoal de paginas Math.Ceiling 
+            int totalPages = (int)Math.Ceiling((double)totalEmpleados / filtroEmpleadoParametroDto.Limite);
+            var excluirElementos = filtroEmpleadoParametroDto.Limite * filtroEmpleadoParametroDto.Pagina;
+            var empleadoPaginados = _empleadoRepository.GetPaginado(consulta, filtroEmpleadoParametroDto.Limite, excluirElementos);
+            var empleadoDto = _mapper.Map<List<EmpleadoDto>>(empleadoPaginados);
+            var paginacionDto = new PaginacionDto<EmpleadoDto>
+            {
+                TotalItems = totalEmpleados,
+                PaginaActual = filtroEmpleadoParametroDto.Pagina + 1,
+                TotalPaginas = totalPages,
+                Items = empleadoDto
+            };
+            return paginacionDto;
+        }
     }
 }
 

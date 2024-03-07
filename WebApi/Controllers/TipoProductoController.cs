@@ -17,6 +17,13 @@ namespace WebApi.Controllers
             _tipoProductoService = tipoProductoService;
         }
 
+        [HttpPost("paginado")]
+        public ActionResult<PaginacionDto<TipoProductoDto>> GetProductosPaginados([FromBody] FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
+        {
+            PaginacionDto<TipoProductoDto> tipoProductosPaginados = _tipoProductoService.ObtenerTipoProductosPaginados(filtroTipoProductoParametroDto);
+            return Ok(tipoProductosPaginados);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<TipoProductoDto> GetPorId(int id)
         {

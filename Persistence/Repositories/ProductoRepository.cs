@@ -41,11 +41,11 @@ namespace Persistence.Repositories
             _ecommerceContext.Productos.Remove(producto);
         }
 
-        public List<Producto> GetPaginado(IQueryable<Producto> queryable, int limite, int pagina)
+        public List<Producto> GetPaginado(IQueryable<Producto> queryable, int limite, int excluir)
         {
             return queryable
                     .OrderBy(p => p.Id)
-                    .Skip(pagina)
+                    .Skip(excluir)
                     .Take(limite)
                     .ToList();
         }

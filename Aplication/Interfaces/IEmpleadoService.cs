@@ -6,14 +6,11 @@ namespace Aplication.Interfaces
     public interface IEmpleadoService
 	{
 		List<EmpleadoDto> Get();
-
 		EmpleadoDto GetById(int id);
-
         int Create(EmpleadoParametroDto empleadoParametroDto);
-
 		void Update(EmpleadoParametroDto empleadoParametroDto);
-
 		void Delete(int id);
+		PaginacionDto<EmpleadoDto> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto);
 	}
 }
 

@@ -4,6 +4,7 @@ using Aplication.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
+using Persistence.Repositories;
 
 namespace Aplication.Implementaciones
 {
@@ -69,6 +70,30 @@ namespace Aplication.Implementaciones
             }
             _tipoProductoRepository.Delete(tipoProducto);
             _unitOfWork.SaveChanges();
+        }
+
+        public PaginacionDto<TipoProductoDto> ObtenerTipoProductosPaginados(FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
+        {
+            IQueryable<TipoProducto> consulta = _tipoProductoRepository.GetQueryable();
+            if (!string.IsNullOrWhiteSpace(filtroTipoProductoParametroDto.Nombre))
+            {
+                consulta = consulta.Where(p => p.Nombre.Contains(filtroTipoProductoParametroDto.Nombre));
+            }
+
+            int totalTipoProductos = consulta.Count();
+            // Obtener el totoal de paginas Math.Ceiling 
+            int totalPages = (int)Math.Ceiling((double)totalTipoProductos / filtroTipoProductoParametroDto.Limite);
+            var excluirElementos = filtroTipoProductoParametroDto.Limite * filtroTipoProductoParametroDto.Pagina;
+            var tipoProductosPaginados = _tipoProductoRepository.GetPaginado(consulta, filtroTipoProductoParametroDto.Limite, excluirElementos);
+            var tipoProductosDto = _mapper.Map<List<TipoProductoDto>>(tipoProductosPaginados);
+            var paginacionDto = new PaginacionDto<TipoProductoDto>
+            {
+                TotalItems = totalTipoProductos,
+                PaginaActual = filtroTipoProductoParametroDto.Pagina + 1,
+                TotalPaginas = totalPages,
+                Items = tipoProductosDto
+            };
+            return paginacionDto;
         }
     }
 }

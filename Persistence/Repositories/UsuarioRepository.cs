@@ -77,6 +77,23 @@ namespace Persistence.Repositories
                     .Any(u => u.Id == id);
            return existeUsuario;
         }
+
+        public List<Usuario> GetPaginado(IQueryable<Usuario> queryable, int limite, int excluir)
+        {
+            return queryable
+                    .OrderBy(p => p.Id)
+                    .Skip(excluir)
+                    .Take(limite)
+                    .ToList();
+        }
+
+        public IQueryable<Usuario> GetQueryable()
+        {
+            IQueryable<Usuario> usuario = _ecommerceContext.Usuarios
+                .Include(u => u.Empleado)
+                .AsQueryable();
+            return usuario;
+        }
     }
 }
 

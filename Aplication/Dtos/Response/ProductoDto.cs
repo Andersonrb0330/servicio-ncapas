@@ -11,6 +11,7 @@ namespace Aplication.Dtos.Response
         public bool Estado { get; set; }
         public int Stock { get; set; }
         public double Precio { get; set; }
+        public int IdTipoProducto { get; set; }
 
         public TipoProductoDto TipoProducto { get; set; }
 

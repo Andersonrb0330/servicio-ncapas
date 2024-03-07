@@ -1,6 +1,10 @@
 ﻿using System.Reflection;
+using Aplication.Dtos.Response;
 using Aplication.Implementaciones;
 using Aplication.Interfaces;
+using Domain.Validacion;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Aplication.Extensions
@@ -18,6 +22,8 @@ namespace Aplication.Extensions
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();
             services.AddTransient<IPaisService, PaisService>();
+            services.AddTransient<IValidator<ProductoDto>,ProductoDtoValidador>();
+            services.AddControllersWithViews().AddFluentValidation();
         }
     }
 }

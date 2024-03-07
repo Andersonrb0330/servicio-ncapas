@@ -15,6 +15,13 @@ namespace WebApi.Controllers
             _empresaService = empresaService;
         }
 
+        [HttpPost("paginado")]
+        public ActionResult<PaginacionDto<EmpresaDto>> GetEmpresaPaginados([FromBody] FiltroEmpresaParametroDto filtroEmpresaParametroDto)
+        {
+            PaginacionDto<EmpresaDto> empresaPaginados  = _empresaService.ObtenerEmpresaPaginado(filtroEmpresaParametroDto);
+            return empresaPaginados;
+        }
+
         [HttpGet]
         public ActionResult<List<EmpresaDto>> GetTodoEmpresa()
         {

@@ -9,6 +9,8 @@ namespace Domain.Repositories
 		Empleado GetById(int id);
 		void Create(Empleado empleado);
 		void Delete(Empleado empleado);
+		List<Empleado> GetPaginado (IQueryable<Empleado> queryable, int limite, int excluir);
+		IQueryable<Empleado> GetQueryable();
     }
 }
 

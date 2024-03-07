@@ -1,4 +1,4 @@
-﻿ using Aplication.Dtos.Request;
+﻿using Aplication.Dtos.Request;
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using AutoMapper;
@@ -99,6 +99,15 @@ namespace Aplication.Implementaciones
             {
                 consulta = consulta.Where(p => p.Nombre.Contains(filtroProductoParametroDto.Nombre));
             }
+            if (!string.IsNullOrWhiteSpace(filtroProductoParametroDto.Descripcion))
+            {
+                consulta = consulta.Where(p => p.Descripcion.Contains(filtroProductoParametroDto.Descripcion));
+            }
+            if (filtroProductoParametroDto.Estado.HasValue)
+            {
+                consulta = consulta.Where(p => p.Estado == filtroProductoParametroDto.Estado);
+            }
+              
 
             int totalProductos = consulta.Count();
             // Obtener el totoal de paginas Math.Ceiling 
@@ -113,7 +122,6 @@ namespace Aplication.Implementaciones
                 TotalPaginas = totalPages,
                 Items = productosDto
             };
-
             return paginacionDto;
         }
     }

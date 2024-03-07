@@ -42,6 +42,21 @@ namespace Persistence.Repositories
         {
             _ecommerceContext.TipoProductos.Remove(tipoProducto);
         }
+
+        public List<TipoProducto> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir)
+        {
+            return queryable
+                    .OrderBy(p => p.Id)
+                    .Skip(excluir)
+                    .Take(limite)
+                    .ToList();
+        }
+
+        public IQueryable<TipoProducto> GetQueryable()
+        {
+            IQueryable<TipoProducto> tipoProducto = _ecommerceContext.TipoProductos.AsQueryable();
+            return tipoProducto;
+        }
     }
 }
 

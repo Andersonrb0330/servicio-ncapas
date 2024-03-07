@@ -12,6 +12,8 @@ namespace Domain.Repositories
         bool VerificarEmpleadoUsuario(int idEmpleado);
         bool Login(string email, string clave);
         Usuario LoginInfo(string email, string clave);
+        List<Usuario> GetPaginado (IQueryable<Usuario> queryable, int limite, int excluir);
+        IQueryable<Usuario> GetQueryable();
     }
 }
 

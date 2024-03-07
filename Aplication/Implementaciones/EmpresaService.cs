@@ -70,6 +70,30 @@ namespace Aplication.Implementaciones
             _empresaRepository.Delete(empresa);
             _unitOfWork.SaveChanges();
         }
+
+        public PaginacionDto<EmpresaDto> ObtenerEmpresaPaginado(FiltroEmpresaParametroDto filtroEmpresaParametroDto)
+        {
+            IQueryable<Empresa> consulta = _empresaRepository.GetQueryable();
+            if (!string.IsNullOrWhiteSpace(filtroEmpresaParametroDto.Nombre))
+            {
+                consulta = consulta.Where(e => e.Nombre.Contains(filtroEmpresaParametroDto.Nombre));
+            }
+
+            int totalEmpresas = consulta.Count();
+            // Obtener el totoal de paginas Math.Ceiling 
+            int totalPages = (int)Math.Ceiling((double)totalEmpresas / filtroEmpresaParametroDto.Limite);
+            var excluirElementos = filtroEmpresaParametroDto.Limite * filtroEmpresaParametroDto.Pagina;
+            var empresaPaginados = _empresaRepository.GetPaginado(consulta, filtroEmpresaParametroDto.Limite, excluirElementos);
+            var empresaDto = _mapper.Map<List<EmpresaDto>>(empresaPaginados);
+            var paginacionDto = new PaginacionDto<EmpresaDto>
+            {
+                TotalItems = totalEmpresas,
+                PaginaActual = filtroEmpresaParametroDto.Pagina + 1,
+                TotalPaginas = totalPages,
+                Items = empresaDto
+            };
+            return paginacionDto;
+        }
     }
 }
 

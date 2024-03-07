@@ -10,6 +10,7 @@ namespace WebApi.Controllers
     [Route("api/productos")]
     public class ProductoController : Controller
     {
+        
         private readonly IProductoService _productoService;
        
         public ProductoController(IProductoService productoService)

@@ -9,6 +9,8 @@ namespace Domain.Repositories
 		void Create(TipoProducto tipoProducto);
 		void Delete(TipoProducto tipoProducto);
 		bool VerificarTipoProducto(int id);
+		List<TipoProducto> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir);
+		IQueryable<TipoProducto> GetQueryable();
 	}
 }
 

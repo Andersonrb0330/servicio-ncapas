@@ -43,7 +43,19 @@ namespace Persistence.Repositories
             _ecommerceContext.Empresas.Remove(empresa);
         }
 
+        public List<Empresa> GetPaginado(IQueryable<Empresa> queryble, int limite, int excluir)
+        {
+            return queryble.OrderBy(p => p.Id)
+                           .Skip(excluir)
+                           .Take(limite)
+                           .ToList();
+        }
 
+        public IQueryable<Empresa> GetQueryable()
+        {
+           IQueryable<Empresa> empresas  = _ecommerceContext.Empresas.AsQueryable();
+            return empresas;
+        }
     }
 }
 

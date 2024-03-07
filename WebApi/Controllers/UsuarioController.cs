@@ -17,6 +17,13 @@ namespace WebApi.Controllers
             _usuarioService = usuarioService;
         }
 
+        [HttpPost("paginado")]
+        public ActionResult<PaginacionDto<UsuarioDto>> GetUsuarioPaginado([FromBody] FiltroUsuarioParametroDto filtroUsuarioParametroDto)
+        {
+            PaginacionDto<UsuarioDto> paginadoUsuario= _usuarioService.ObtenerUsuarioPaginado(filtroUsuarioParametroDto);
+            return paginadoUsuario;
+        }
+
         [HttpGet]
         public IActionResult GetTodoUsuario()
         {

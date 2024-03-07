@@ -45,6 +45,21 @@ namespace Persistence.Repositories
         {
             _ecommerceContext.Empleados.Remove(empleado);
         }
+
+        public List<Empleado> GetPaginado(IQueryable<Empleado> queryable, int limite, int excluir)
+        {
+            return queryable
+                    .OrderBy(p => p.Id)
+                    .Skip(excluir)
+                    .Take(limite)
+                    .ToList();
+        }
+
+        public IQueryable<Empleado> GetQueryable()
+        {
+            IQueryable<Empleado> empleado = _ecommerceContext.Empleados.AsQueryable();
+            return empleado;
+        }
     }
 }
 

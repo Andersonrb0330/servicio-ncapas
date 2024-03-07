@@ -3,8 +3,6 @@ using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebApi.Controllers
 {
     [Route("api/empleado")]
@@ -15,6 +13,13 @@ namespace WebApi.Controllers
         public EmpleadoController(IEmpleadoService empleadoService)
         {
             _empleadoService = empleadoService; 
+        }
+
+        [HttpPost("paginado")]
+        public ActionResult<PaginacionDto<EmpleadoDto>> GetEmpleadoPaginado([FromBody] FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
+        {
+            PaginacionDto<EmpleadoDto> empleadoDto = _empleadoService.ObtenerEmpleadoPaginado(filtroEmpleadoParametroDto);
+            return empleadoDto;            
         }
 
         [HttpGet]

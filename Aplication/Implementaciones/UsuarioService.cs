@@ -5,6 +5,7 @@ using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
 
+
 namespace Aplication.Implementaciones
 {
     public class UsuarioService : IUsuarioService
@@ -115,6 +116,33 @@ namespace Aplication.Implementaciones
             return empleadoDto;
         }
 
+        public PaginacionDto<UsuarioDto> ObtenerUsuarioPaginado(FiltroUsuarioParametroDto filtroUsuarioParametroDto)
+        {
+            IQueryable<Usuario> consulta = _usuarioRepository.GetQueryable();
+            if (!string.IsNullOrWhiteSpace(filtroUsuarioParametroDto.Email))
+            {
+                consulta = consulta.Where(u => u.Email.Contains(filtroUsuarioParametroDto.Email));
+            }
+            if (filtroUsuarioParametroDto.IdEmpleado.HasValue)
+            {
+                consulta = consulta.Where(u => u.IdEmpleado == filtroUsuarioParametroDto.IdEmpleado);
+            }
+
+            int totalUsuarios = consulta.Count();
+            // Obtener el totoal de paginas Math.Ceiling 
+            int totalPages = (int)Math.Ceiling((double)totalUsuarios / filtroUsuarioParametroDto.Limite);
+            var excluirElementos = filtroUsuarioParametroDto.Limite * filtroUsuarioParametroDto.Pagina;
+            var UsuariosPaginados = _usuarioRepository.GetPaginado(consulta, filtroUsuarioParametroDto.Limite, excluirElementos);
+            var UsuariosDto = _mapper.Map<List<UsuarioDto>>(UsuariosPaginados);
+            var paginacionDto = new PaginacionDto<UsuarioDto>
+            {
+                TotalItems = totalUsuarios,
+                PaginaActual = filtroUsuarioParametroDto.Pagina + 1,
+                TotalPaginas = totalPages,
+                Items = UsuariosDto
+            };
+            return paginacionDto;
+        }
     }
 }
 
