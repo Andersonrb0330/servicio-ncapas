@@ -10,10 +10,11 @@ namespace WebApi.Controllers
     [Route("api/productos")]
     public class ProductoController : Controller
     {
-        
         private readonly IProductoService _productoService;
-       
-        public ProductoController(IProductoService productoService)
+
+        public ProductoController(
+            IProductoService productoService
+            )
         {
             _productoService = productoService;
         }
@@ -43,7 +44,7 @@ namespace WebApi.Controllers
         public ActionResult<int> PostCrear([FromBody] ProductoParametroDto productoParametroDto)
         {
             int id = _productoService.Crear(productoParametroDto);
-            return Ok(id);
+            return Ok(id);                 
         }
 
         [HttpPut("{id}")]

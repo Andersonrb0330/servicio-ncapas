@@ -4,21 +4,25 @@ using Aplication.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
+using FluentValidation;
 
 namespace Aplication.Implementaciones
 {
     public class EmpresaService : IEmpresaService
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IEmpresaRepository _empresaRepository;
+        private readonly IValidator<EmpresaParametroDto> _empresaParametroDto;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public EmpresaService(
             IEmpresaRepository empresaRepository,
+            IValidator<EmpresaParametroDto> validator,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             _empresaRepository = empresaRepository;
+            _empresaParametroDto = validator;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -39,6 +43,12 @@ namespace Aplication.Implementaciones
 
         public int Crear(EmpresaParametroDto empresaParametroDto)
         {
+            var validationResult =  _empresaParametroDto.Validate(empresaParametroDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             Empresa empresa = new Empresa
             {
                 Nombre = empresaParametroDto.Nombre

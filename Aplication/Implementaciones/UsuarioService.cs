@@ -4,7 +4,7 @@ using Aplication.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
-
+using FluentValidation;
 
 namespace Aplication.Implementaciones
 {
@@ -12,17 +12,20 @@ namespace Aplication.Implementaciones
     {
         private readonly IUsuarioRepository _usuarioRepository;
         private readonly IEmpleadoRepository _empleadoRepository;
+        private readonly IValidator<UsuarioParametroDto> _usuarioParametroDto;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper; 
 
         public UsuarioService(
             IUsuarioRepository usuarioRepository,        
             IEmpleadoRepository  empleadoRepository,
+            IValidator<UsuarioParametroDto> validator,
             IUnitOfWork unitOfWork,
             IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
             _empleadoRepository = empleadoRepository;
+            _usuarioParametroDto = validator;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
@@ -43,6 +46,12 @@ namespace Aplication.Implementaciones
 
         public int Crear(UsuarioParametroDto usuarioParametroDto)
         {
+            var validationResult = _usuarioParametroDto.Validate(usuarioParametroDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             bool existeEmail = _usuarioRepository.VerificarEmail(usuarioParametroDto.Email);
             if (existeEmail == true)
             {

@@ -39,7 +39,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrear(TipoProductoParametroDto tipoProductoParametroDto)
+        public ActionResult<int> PostCrear([FromBody]TipoProductoParametroDto tipoProductoParametroDto)
         {
             int id = _tipoProductoService.Crear(tipoProductoParametroDto);
             return Ok(id);

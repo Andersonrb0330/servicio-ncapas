@@ -4,24 +4,28 @@ using Aplication.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
+using FluentValidation;
 
 namespace Aplication.Implementaciones
 {
     public class ProductoService : IProductoService
 	{
         private readonly IProductoRepository _productoRepository;
-        private readonly ITipoProductoRepository _tipoProductoRepository;        
+        private readonly ITipoProductoRepository _tipoProductoRepository;
+        private readonly IValidator<ProductoParametroDto> _productoParametroDtoValidator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public ProductoService(
             IProductoRepository productoRepository,
             ITipoProductoRepository tipoProductoRepository,
+            IValidator<ProductoParametroDto> validator,
             IUnitOfWork unitOfWork,
             IMapper mapper)
 		{
             _productoRepository = productoRepository;
-            _tipoProductoRepository = tipoProductoRepository;        
+            _tipoProductoRepository = tipoProductoRepository;
+            _productoParametroDtoValidator = validator;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
 		}
@@ -42,6 +46,12 @@ namespace Aplication.Implementaciones
 
         public int Crear(ProductoParametroDto productoParametroDto)
         {
+            var validationResult = _productoParametroDtoValidator.Validate(productoParametroDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             bool existeTipoProducto = _tipoProductoRepository.VerificarTipoProducto(productoParametroDto.IdTipoProducto);
             if (existeTipoProducto == false)
             {

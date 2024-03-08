@@ -1,7 +1,6 @@
-﻿using System;
-namespace Aplication.Dtos.Request
+﻿namespace Aplication.Dtos.Request
 {
-	public class UsuarioParametroDto
+    public class UsuarioParametroDto
 	{
         public int Id { get; set; }
         public string Email { get; set; }

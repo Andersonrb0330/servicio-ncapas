@@ -1,4 +1,4 @@
-﻿ using Aplication.Dtos.Request;
+﻿using Aplication.Dtos.Request;
 using Aplication.Dtos.Response;
 using Aplication.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +37,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<EmpleadoDto> Create(EmpleadoParametroDto empleadoParametroDto)
+        public ActionResult<EmpleadoDto> Create([FromBody] EmpleadoParametroDto empleadoParametroDto)
         {
             int id = _empleadoService.Create(empleadoParametroDto);
             return Ok(id);

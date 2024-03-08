@@ -37,7 +37,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrearEmpresa(EmpresaParametroDto empresaParametroDto)
+        public ActionResult<int> PostCrearEmpresa([FromBody]EmpresaParametroDto empresaParametroDto)
         {
             int id = _empresaService.Crear(empresaParametroDto);
             return Ok(id);
