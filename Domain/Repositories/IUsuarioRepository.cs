@@ -4,14 +4,14 @@ namespace Domain.Repositories
 {
     public interface IUsuarioRepository
 	{
-        List<Usuario> Get();
-        Usuario GetById(int id);
+        Task<List<Usuario>> Get();
+        Task<Usuario> GetById(int id);
         void Delete(Usuario usuario);
-        void Create(Usuario usuario);
-        bool VerificarEmail(string email);
-        bool VerificarEmpleadoUsuario(int idEmpleado);
-        bool Login(string email, string clave);
-        Usuario LoginInfo(string email, string clave);
+        Task Create(Usuario usuario);
+        Task<bool> VerificarEmail(string email);
+        Task<bool> VerificarEmpleadoUsuario(int idEmpleado);
+        Task<bool> Login(string email, string clave);
+        Task<Usuario> LoginInfo(string email, string clave);
         List<Usuario> GetPaginado (IQueryable<Usuario> queryable, int limite, int excluir);
         IQueryable<Usuario> GetQueryable();
     }

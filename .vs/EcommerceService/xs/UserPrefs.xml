@@ -1,54 +1,39 @@
 ﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|Default">
-  <DisabledProjects>
-    <String>Persistence/Repository/Repository.csproj</String>
-  </DisabledProjects>
-  <MultiItemStartupConfigurations>
-    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
-  </MultiItemStartupConfigurations>
-  <MonoDevelop.Ide.Workbench ActiveDocument="WebApi/Controllers/ProductoController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.1.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApi/Controllers/EmpleadoController.cs">
     <Files>
-      <File FileName="Aplication/Extensions/ServiceCollectionExtensions.cs" Line="28" Column="6" />
-      <File FileName="WebApi/Controllers/ProductoController.cs" Line="13" Column="9" />
+      <File FileName="WebApi/Controllers/EmpresaController.cs" />
+      <File FileName="WebApi/Controllers/EmpleadoController.cs" Line="2" Column="7" />
+      <File FileName="WebApi/Program.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="EcommerceService">
-            <Node name="Core">
-              <Node name="Aplication" expanded="True">
-                <Node name="Dependencies" expanded="True" />
-                <Node name="Dtos" expanded="True">
-                  <Node name="Response" expanded="True" />
-                </Node>
-                <Node name="Extensions" expanded="True" />
-                <Node name="Implementaciones" expanded="True" />
-                <Node name="Validacion" expanded="True" />
-              </Node>
-              <Node name="Domain" expanded="True">
-                <Node name="Entity" expanded="True" />
-              </Node>
-            </Node>
-            <Node name="Infraestructure">
-              <Node name="Persistence" expanded="True">
-                <Node name="Context" expanded="True" />
-              </Node>
-            </Node>
-            <Node name="Presentation">
-              <Node name="WebApi" expanded="True">
+            <Node name="1.Presentation">
+              <Node name="WebApi">
                 <Node name="Controllers" expanded="True" />
               </Node>
+            </Node>
+            <Node name="2.Core" expanded="True">
+              <Node name="Application" selected="True" />
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
+  </MultiItemStartupConfigurations>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Repository/Repositories/UsuarioRepository.cs" relfile="Repository/Repositories/UsuarioRepository.cs" line="18" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <DisabledProjects>
+    <String>Persistence/Repository/Repository.csproj</String>
+  </DisabledProjects>
 </Properties>

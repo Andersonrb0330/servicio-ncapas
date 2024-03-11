@@ -1,5 +1,6 @@
 ﻿using Domain.Entity;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 
 namespace Persistence.Repositories
@@ -13,29 +14,29 @@ namespace Persistence.Repositories
             _ecommerceContext = ecommerceContext;
         }
 
-        public bool VerificarEmpresa(int id)
+        public async Task<bool> VerificarEmpresa(int id)
         {
             bool existeEmpresa = _ecommerceContext.Empresas
                 .Any(e => e.Id == id);
             return existeEmpresa;
         }
 
-        public List<Empresa> Get()
+        public async Task<List<Empresa>> Get()
         {
-            List<Empresa> empresa = _ecommerceContext.Empresas
-                .ToList();
+            List<Empresa> empresa = await _ecommerceContext.Empresas
+                .ToListAsync();
             return empresa;    
         }
 
-        public Empresa GetById(int id)
+        public async Task<Empresa> GetById(int id)
         {
-            Empresa empresa = _ecommerceContext.Empresas.FirstOrDefault(e => e.Id == id);
+            Empresa empresa = await _ecommerceContext.Empresas.FirstOrDefaultAsync(e => e.Id == id);
             return empresa;
         }
 
-        public void Create(Empresa empresa)
+        public async Task Create(Empresa empresa)
         {
-            _ecommerceContext.Empresas.Add(empresa);
+           await  _ecommerceContext.Empresas.AddAsync(empresa);
         }
 
         public void Delete(Empresa empresa)

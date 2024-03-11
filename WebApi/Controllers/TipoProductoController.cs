@@ -1,6 +1,6 @@
-﻿using Aplication.Dtos.Request;
-using Aplication.Dtos.Response;
-using Aplication.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,23 +25,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TipoProductoDto> GetPorId(int id)
+        public async Task<ActionResult<TipoProductoDto>> GetPorId(int id)
         {
-            TipoProductoDto tipo = _tipoProductoService.ObtenerPorId(id);
+            TipoProductoDto tipo = await _tipoProductoService.ObtenerPorId(id);
             return Ok(tipo);
         }
 
         [HttpGet]
-        public ActionResult<List<TipoProductoDto>> GetObtenerTodos()
+        public async Task<ActionResult<List<TipoProductoDto>>> GetObtenerTodos()
         {
-            List<TipoProductoDto> tipoProductoDtos = _tipoProductoService.ObtenerTodos();
+            List<TipoProductoDto> tipoProductoDtos = await  _tipoProductoService.ObtenerTodos();
             return Ok(tipoProductoDtos);
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrear([FromBody]TipoProductoParametroDto tipoProductoParametroDto)
+        public async Task<ActionResult<int>> PostCrear([FromBody]TipoProductoParametroDto tipoProductoParametroDto)
         {
-            int id = _tipoProductoService.Crear(tipoProductoParametroDto);
+            int id = await _tipoProductoService.Crear(tipoProductoParametroDto);
             return Ok(id);
         }
 

@@ -22,6 +22,11 @@ namespace Persistence.Commons
         {
             _ecommerceContext.SaveChanges();
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await _ecommerceContext.SaveChangesAsync();
+        }
     }
 }
 

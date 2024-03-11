@@ -4,11 +4,11 @@ namespace Domain.Repositories
 {
     public interface ITipoProductoRepository 
 	{
-		List<TipoProducto> Get();
-		TipoProducto GetById(int id);
-		void Create(TipoProducto tipoProducto);
+		Task<List<TipoProducto>> Get();
+		Task<TipoProducto> GetById(int id);
+		Task Create(TipoProducto tipoProducto);
 		void Delete(TipoProducto tipoProducto);
-		bool VerificarTipoProducto(int id);
+		Task<bool> VerificarTipoProducto(int id);
 		List<TipoProducto> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir);
 		IQueryable<TipoProducto> GetQueryable();
 	}

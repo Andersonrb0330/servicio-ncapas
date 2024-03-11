@@ -1,4 +1,4 @@
-using Aplication.Extensions;
+using Application.Extensions;
 using Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

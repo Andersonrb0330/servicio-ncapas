@@ -14,68 +14,68 @@ namespace Persistence.Repositories
             _ecommerceContext = ecommerceContext;
         }
 
-        public bool Login(string email, string clave)
+        public async Task<bool> Login(string email, string clave)
         {
-            bool existeUsuario = _ecommerceContext.Usuarios
+            bool existeUsuario = await _ecommerceContext.Usuarios
                  //Any te devuelve un bool, true or false, 
-                 .Any(u => u.Email == email && u.Clave == clave);
+                 .AnyAsync(u => u.Email == email && u.Clave == clave);
             return existeUsuario;
         }
 
-        public Usuario LoginInfo(string email, string clave)
+        public async Task<Usuario> LoginInfo(string email, string clave)
         {
-            Usuario usuarioinfo = _ecommerceContext.Usuarios
+            Usuario usuarioinfo = await _ecommerceContext.Usuarios
                 .Include(u => u.Empleado)
-                .FirstOrDefault(u => u.Email == email && u.Clave == clave);
+                .FirstOrDefaultAsync(u => u.Email == email && u.Clave == clave);
             return usuarioinfo;
         }
 
-        public List<Usuario> Get()
+        public async Task<List<Usuario>> Get()
         {
-            List<Usuario> usuarios = _ecommerceContext.Usuarios
+            List<Usuario> usuarios = await _ecommerceContext.Usuarios
                 .Include(e => e.Empleado)
-                .ToList();
+                .ToListAsync();
             return usuarios;
         }
 
-        public Usuario GetById(int id)
+        public async Task<Usuario> GetById(int id)
         {
-            Usuario usuario = _ecommerceContext.Usuarios
+            Usuario usuario = await _ecommerceContext.Usuarios
                .Include(u => u.Empleado)
-               .FirstOrDefault(u => u.Id == id);
+               .FirstOrDefaultAsync(u => u.Id == id);
             return usuario;
         }
 
-        public void Create(Usuario usuario)
+        public async Task Create(Usuario usuario)
         {
-            _ecommerceContext.Usuarios.Add(usuario);
+            await _ecommerceContext.Usuarios.AddAsync(usuario);
         }
 
-        public bool VerificarEmail(string email)
+        public async Task<bool> VerificarEmail(string email)
         {
-            bool existeEmail = _ecommerceContext.Usuarios
-                 .Any(u => u.Email == email);
+            bool existeEmail = await _ecommerceContext.Usuarios
+                 .AnyAsync(u => u.Email == email);
             return existeEmail;
         }
 
-        public bool VerificarEmpleadoUsuario(int idEmpleado)
+        public async Task<bool> VerificarEmpleadoUsuario(int idEmpleado)
         {
-            bool existeUsuarioIdEmpleado = _ecommerceContext.Usuarios
-                    .Any(u => u.IdEmpleado == idEmpleado);
+            bool existeUsuarioIdEmpleado = await _ecommerceContext.Usuarios
+                    .AnyAsync(u => u.IdEmpleado == idEmpleado);
             return existeUsuarioIdEmpleado;
+        }
+
+        public async Task<bool> VerificarUsuario(int id)
+        {
+            bool existeUsuario = await _ecommerceContext.Usuarios
+                     .AnyAsync(u => u.Id == id);
+            return existeUsuario;
         }
 
         public void Delete(Usuario usuario)
         {
             _ecommerceContext.Usuarios.Remove(usuario);
             _ecommerceContext.SaveChanges();            
-        }
-
-        public bool VerificarUsuario(int id)
-        {
-           bool existeUsuario = _ecommerceContext.Usuarios
-                    .Any(u => u.Id == id);
-           return existeUsuario;
         }
 
         public List<Usuario> GetPaginado(IQueryable<Usuario> queryable, int limite, int excluir)

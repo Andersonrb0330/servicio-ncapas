@@ -1,6 +1,6 @@
-﻿using Aplication.Dtos.Request;
-using Aplication.Dtos.Response;
-using Aplication.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -23,23 +23,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<EmpleadoDto>> Get()
+        public async Task<ActionResult<List<EmpleadoDto>>> Get()
         {
-            List<EmpleadoDto> empleadoDto = _empleadoService.Get();
+            List<EmpleadoDto> empleadoDto = await _empleadoService.Get();
             return Ok(empleadoDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EmpleadoDto> GetById(int id)
+        public async Task<ActionResult<EmpleadoDto>> GetById(int id)
         {
-            EmpleadoDto empleadoDto = _empleadoService.GetById(id);
+            EmpleadoDto empleadoDto = await _empleadoService.GetById(id);
             return Ok(empleadoDto);
         }
 
         [HttpPost]
-        public ActionResult<EmpleadoDto> Create([FromBody] EmpleadoParametroDto empleadoParametroDto)
+        public async Task<ActionResult<EmpleadoDto>> Create([FromBody] EmpleadoParametroDto empleadoParametroDto)
         {
-            int id = _empleadoService.Create(empleadoParametroDto);
+            int id = await _empleadoService.Create(empleadoParametroDto);
             return Ok(id);
         }
 

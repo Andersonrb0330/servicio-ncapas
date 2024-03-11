@@ -14,33 +14,33 @@ namespace Persistence.Repositories
 			_ecommerceContext = ecommerceContext;
 		}
 
-        public bool ExisteEmpleado(int id)
+        public async Task<bool> ExisteEmpleado(int id)
         {
-			bool existeEmpleado = _ecommerceContext.Empleados.Any(e => e.Id == id);
+			bool existeEmpleado = await _ecommerceContext.Empleados.AnyAsync(e => e.Id == id);
 			return existeEmpleado;
         }
 
-        public List<Empleado> Get()
+        public async Task<List<Empleado>> Get()
         {
-            List<Empleado> empleado = _ecommerceContext.Empleados
+            List<Empleado> empleado = await  _ecommerceContext.Empleados
                 .Include(e => e.Empresa)
-                .ToList();
+                .ToListAsync();
             return empleado;
         }
 
-        public Empleado GetById(int id)
+        public async Task<Empleado> GetById(int id)
         {
-            Empleado empleado = _ecommerceContext.Empleados
+            Empleado empleado = await _ecommerceContext.Empleados
                 .Include(e => e.Empresa)
-                .FirstOrDefault(e => e.Id == id);
+                .FirstOrDefaultAsync(e => e.Id == id);
             return empleado;
         }
 
-        public void Create(Empleado empleado)
+        public async Task Create(Empleado empleado)
         {
-            _ecommerceContext.Empleados.Add(empleado);
+           await _ecommerceContext.Empleados.AddAsync(empleado);
         }
-
+         
         public void Delete(Empleado empleado)
         {
             _ecommerceContext.Empleados.Remove(empleado);

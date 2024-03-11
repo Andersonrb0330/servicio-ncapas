@@ -1,6 +1,6 @@
-﻿using Aplication.Dtos.Response;
-using Aplication.Dtos.Request;
-using Aplication.Interfaces;
+﻿using Application.Dtos.Response;
+using Application.Dtos.Request;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -23,23 +23,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<EmpresaDto>> GetTodoEmpresa()
+        public async Task<ActionResult<List<EmpresaDto>>> GetTodoEmpresa()
         {
-            List<EmpresaDto> empresaDto = _empresaService.ObtenerTodo();
+            List<EmpresaDto> empresaDto = await _empresaService.ObtenerTodo();
             return Ok(empresaDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<EmpresaDto> GetPorIdEmpresa(int id)
+        public async Task<ActionResult<EmpresaDto>> GetPorIdEmpresa(int id)
         {
-            EmpresaDto empresaDto = _empresaService.ObtenerPorId(id);
+            EmpresaDto empresaDto = await _empresaService.ObtenerPorId(id);
             return Ok(empresaDto);
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrearEmpresa([FromBody]EmpresaParametroDto empresaParametroDto)
+        public async Task<ActionResult<int>> PostCrearEmpresa([FromBody]EmpresaParametroDto empresaParametroDto)
         {
-            int id = _empresaService.Crear(empresaParametroDto);
+            int id = await _empresaService.Crear(empresaParametroDto);
             return Ok(id);
         }
 

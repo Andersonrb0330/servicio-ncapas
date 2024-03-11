@@ -1,6 +1,6 @@
-﻿using Aplication.Dtos.Request;
-using Aplication.Dtos.Response;
-using Aplication.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,23 +25,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTodoUsuario()
+        public async Task<ActionResult<List<UsuarioDto>>> GetTodoUsuario()
         {
-            List<UsuarioDto> usuarioDto = _usuarioService.ObtenerTodo();
+            List<UsuarioDto> usuarioDto = await _usuarioService.ObtenerTodo();
             return Ok(usuarioDto);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPorIdUsuario(int id)
+        public async Task<ActionResult<UsuarioDto>> GetPorIdUsuario(int id)
         {
-            UsuarioDto usuarioDto = _usuarioService.ObtenerPorId(id);
+            UsuarioDto usuarioDto = await _usuarioService.ObtenerPorId(id);
             return Ok(usuarioDto);
         }
 
         [HttpPost]
-        public ActionResult<int> PostCrear([FromBody] UsuarioParametroDto usuarioParametroDto)
+        public async Task<ActionResult<int>> PostCrear([FromBody] UsuarioParametroDto usuarioParametroDto)
         {
-            int id = _usuarioService.Crear(usuarioParametroDto);
+            int id = await _usuarioService.Crear(usuarioParametroDto);
             return id;
         }
 
@@ -61,16 +61,16 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<bool> PostLogin(UsuarioParametroDto usuarioParametroDto)
+        public async Task<ActionResult<bool>> PostLogin(UsuarioParametroDto usuarioParametroDto)
         {
-            bool logeo = _usuarioService.Login(usuarioParametroDto);
+            bool logeo = await _usuarioService.Login(usuarioParametroDto);
             return logeo;
         }
 
         [HttpPost("login/info")]
-        public ActionResult<EmpleadoDto> PostLoginInfo(UsuarioParametroDto usuarioParametroDto)
+        public async Task<ActionResult<EmpleadoDto>> PostLoginInfo(UsuarioParametroDto usuarioParametroDto)
         {
-            EmpleadoDto empleadoDto = _usuarioService.LoginInfo(usuarioParametroDto);
+            EmpleadoDto empleadoDto = await  _usuarioService.LoginInfo(usuarioParametroDto);
             return Ok(empleadoDto);
         }
     }

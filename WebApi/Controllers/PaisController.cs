@@ -1,6 +1,6 @@
-﻿using Aplication.Dtos.Request;
-using Aplication.Dtos.Response;
-using Aplication.Interfaces;
+﻿using Application.Dtos.Request;
+using Application.Dtos.Response;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

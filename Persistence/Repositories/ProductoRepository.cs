@@ -15,25 +15,25 @@ namespace Persistence.Repositories
             _ecommerceContext = ecommerceContext;
         }
 
-        public List<Producto> Get()
+        public async Task<List<Producto>> Get()
         {
-            List<Producto> productos = _ecommerceContext.Productos
+            List<Producto> productos =  await _ecommerceContext.Productos
                                        .Include(p => p.TipoProducto)
-                                       .ToList();
+                                       .ToListAsync();
             return productos;
         }
 
-        public Producto GetById(int id)
+        public async Task<Producto> GetById(int id)
         {
-            Producto producto = _ecommerceContext.Productos
+            Producto producto = await _ecommerceContext.Productos
                                 .Include(p => p.TipoProducto)
-                                .FirstOrDefault(p => p.Id == id);
+                                .FirstOrDefaultAsync(p => p.Id == id);
             return producto;
         }
 
-        public void Create(Producto producto)
+        public async Task Create(Producto producto)
         {
-            _ecommerceContext.Productos.Add(producto);
+           await _ecommerceContext.Productos.AddAsync(producto);
         }
 
         public void Delete(Producto producto)
