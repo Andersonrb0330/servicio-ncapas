@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\ExternalServices\ExternalServices.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Implementaciones\" />

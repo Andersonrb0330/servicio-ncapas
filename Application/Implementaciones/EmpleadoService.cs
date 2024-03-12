@@ -46,14 +46,14 @@ namespace Application.Implementaciones
 
         public async Task<int> Create(EmpleadoParametroDto empleadoParametroDto)
         {
-             var validationResult = _validarEmpleado.Validate(empleadoParametroDto);
+            var validationResult = _validarEmpleado.Validate(empleadoParametroDto);
             if(!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);
             }
 
             bool existeEmpresa = await _empresaRepository.VerificarEmpresa(empleadoParametroDto.IdEmpresa);
-            if (existeEmpresa == false)
+            if (!existeEmpresa)
             {
                 throw new Exception($"El ID :{empleadoParametroDto.IdEmpresa} de la empresa  no existe");
             }                  
