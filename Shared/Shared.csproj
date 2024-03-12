@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Interfaces\" />
+    <None Remove="Interfaces\ExternalServices\" />
+    <None Remove="Models\" />
+    <None Remove="Models\FakerApi\" />
+    <None Remove="ServiceClient\" />
+    <None Remove="Models\Reqres\" />
+    <None Remove="Parameters\" />
+    <None Remove="Parameters\ReqresApiServiceClient\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Interfaces\ExternalServices\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\FakerApi\" />
+    <Folder Include="ServiceClient\" />
+    <Folder Include="Models\Reqres\" />
+    <Folder Include="Parameters\" />
+    <Folder Include="Parameters\ReqresApiServiceClient\" />
+  </ItemGroup>
+</Project>

@@ -1,14 +1,17 @@
 using Application.Extensions;
 using Persistence.Extensions;
+using ExternalServices.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddPersistenceProject(builder.Configuration);
 builder.Services.AddApplicationProject();
+builder.Services.AddExternalServiceProject(builder.Configuration);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
