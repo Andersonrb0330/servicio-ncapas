@@ -1,26 +1,29 @@
 ﻿using Application.Dtos.Request;
 using Application.Dtos.Response;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/tipo-productos")]
     public class TipoProductoController : Controller
     {
         private readonly ITipoProductoService _tipoProductoService;
 
-        public TipoProductoController(ITipoProductoService tipoProductoService)
+        public TipoProductoController(
+            ITipoProductoService tipoProductoService)
         {
             _tipoProductoService = tipoProductoService;
         }
 
         [HttpPost("paginado")]
-        public ActionResult<PaginacionDto<TipoProductoDto>> GetProductosPaginados([FromBody] FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
+        public async Task<ActionResult<PaginacionDto<TipoProductoDto>>> GetProductosPaginados([FromBody] FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
         {
-            PaginacionDto<TipoProductoDto> tipoProductosPaginados = _tipoProductoService.ObtenerTipoProductosPaginados(filtroTipoProductoParametroDto);
+            PaginacionDto<TipoProductoDto> tipoProductosPaginados = await _tipoProductoService.ObtenerTipoProductosPaginados(filtroTipoProductoParametroDto);
             return Ok(tipoProductosPaginados);
         }
 
@@ -46,17 +49,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<TipoProductoDto> PutModificar(int id, [FromBody] TipoProductoParametroDto tipoProductoParametroDto)
+        public async Task< ActionResult> PutModificar(int id, [FromBody] TipoProductoParametroDto tipoProductoParametroDto)
         {
             tipoProductoParametroDto.Id = id;
-            _tipoProductoService.Modificar(tipoProductoParametroDto);
+            await _tipoProductoService.Modificar(tipoProductoParametroDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<TipoProductoDto> Delete(int id)
+        public async Task< ActionResult> Delete(int id)
         {
-            _tipoProductoService.Eliminar(id);
+            await _tipoProductoService.Eliminar(id);
             return Ok();
         }
     }

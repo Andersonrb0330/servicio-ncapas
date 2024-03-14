@@ -14,7 +14,6 @@ namespace ExternalServices.Extensions
             services.AddTransient<IFakerApiService, FakerApiService>();
             services.AddTransient<IReqresApiService, ReqresApiService>();
         }
-
     }
 }        
 

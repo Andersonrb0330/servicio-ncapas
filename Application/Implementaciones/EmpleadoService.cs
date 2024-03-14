@@ -56,7 +56,8 @@ namespace Application.Implementaciones
             if (!existeEmpresa)
             {
                 throw new Exception($"El ID :{empleadoParametroDto.IdEmpresa} de la empresa  no existe");
-            }                  
+            }
+            
             Empleado empleado = new Empleado
             {
                 Nombre   = empleadoParametroDto.Nombre,
@@ -72,7 +73,7 @@ namespace Application.Implementaciones
             return empleado.Id;
         }
 
-        public async void Update(EmpleadoParametroDto empleadoParametroDto)
+        public async Task Update(EmpleadoParametroDto empleadoParametroDto)
         {
             Empleado empleado = await _empleadoRepository.GetById(empleadoParametroDto.Id);
             if (empleado == null)
@@ -96,7 +97,7 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             Empleado empleado = await _empleadoRepository.GetById(id);
             if (empleado == null)
@@ -108,9 +109,9 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public PaginacionDto<EmpleadoDto> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
+        public async Task<PaginacionDto<EmpleadoDto>> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
         {
-            IQueryable<Empleado> consulta = _empleadoRepository.GetQueryable();
+            IQueryable<Empleado> consulta = await _empleadoRepository.GetQueryable();
             if (!string.IsNullOrWhiteSpace(filtroEmpleadoParametroDto.Nombre))
             {
                 consulta = consulta.Where(e => e.Nombre.Contains(filtroEmpleadoParametroDto.Nombre));
@@ -128,7 +129,7 @@ namespace Application.Implementaciones
             // Obtener el totoal de paginas Math.Ceiling 
             int totalPages = (int)Math.Ceiling((double)totalEmpleados / filtroEmpleadoParametroDto.Limite);
             var excluirElementos = filtroEmpleadoParametroDto.Limite * filtroEmpleadoParametroDto.Pagina;
-            var empleadoPaginados = _empleadoRepository.GetPaginado(consulta, filtroEmpleadoParametroDto.Limite, excluirElementos);
+            var empleadoPaginados = await  _empleadoRepository.GetPaginado(consulta, filtroEmpleadoParametroDto.Limite, excluirElementos);
             var empleadoDto = _mapper.Map<List<EmpleadoDto>>(empleadoPaginados);
             var paginacionDto = new PaginacionDto<EmpleadoDto>
             {

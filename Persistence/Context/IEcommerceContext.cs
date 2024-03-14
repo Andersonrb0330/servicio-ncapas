@@ -10,6 +10,7 @@ namespace Persistence.Context
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empresa> Empresas { get; set; }
         DbSet<Empleado> Empleados { get; set; }
+        DbSet<Rol> Roles { get; set; }
         int SaveChanges();
     }
 }

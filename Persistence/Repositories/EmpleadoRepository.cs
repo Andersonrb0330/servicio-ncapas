@@ -9,7 +9,8 @@ namespace Persistence.Repositories
 	{
 		private readonly IEcommerceContext _ecommerceContext;
 
-		public EmpleadoRepository(IEcommerceContext ecommerceContext)
+		public EmpleadoRepository(
+            IEcommerceContext ecommerceContext)
 		{
 			_ecommerceContext = ecommerceContext;
 		}
@@ -46,16 +47,16 @@ namespace Persistence.Repositories
             _ecommerceContext.Empleados.Remove(empleado);
         }
 
-        public List<Empleado> GetPaginado(IQueryable<Empleado> queryable, int limite, int excluir)
+        public async Task< List<Empleado>> GetPaginado(IQueryable<Empleado> queryable, int limite, int excluir)
         {
-            return queryable
+            return  queryable
                     .OrderBy(p => p.Id)
                     .Skip(excluir)
                     .Take(limite)
                     .ToList();
         }
 
-        public IQueryable<Empleado> GetQueryable()
+        public async Task<IQueryable<Empleado>> GetQueryable()
         {
             IQueryable<Empleado> empleado = _ecommerceContext.Empleados.AsQueryable();
             return empleado;

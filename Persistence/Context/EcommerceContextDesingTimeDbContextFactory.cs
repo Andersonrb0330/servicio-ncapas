@@ -6,7 +6,6 @@ namespace Persistence.Context
 {
     public class EcommerceContextDesingTimeDbContextFactory  : IDesignTimeDbContextFactory<EcommerceContext>
     {
-
         public EcommerceContext CreateDbContext(string[] args)
         {
             IConfiguration config = new ConfigurationBuilder()
@@ -16,7 +15,7 @@ namespace Persistence.Context
                .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<EcommerceContext>();
-            optionsBuilder.UseSqlServer(config.GetConnectionString("SqlConnection"));
+            optionsBuilder.UseSqlServer(config.GetConnectionString("SqlEcommerce"));
 
             return new EcommerceContext(optionsBuilder.Options);
         }

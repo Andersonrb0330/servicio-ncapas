@@ -15,7 +15,6 @@ namespace Application.Dtos.Response
 
         public TipoProductoDto TipoProducto { get; set; }
 
-
         public ProductoDto()
 		{
 		}
@@ -27,7 +26,5 @@ namespace Application.Dtos.Response
             CreateMap<Producto, ProductoDto>();
         }
     }
-
-
 }
 

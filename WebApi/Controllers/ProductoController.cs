@@ -1,28 +1,29 @@
 ﻿using Application.Dtos.Request;
 using Application.Dtos.Response;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/productos")]
     public class ProductoController : Controller
     {
         private readonly IProductoService _productoService;
 
         public ProductoController(
-            IProductoService productoService
-            )
+            IProductoService productoService)
         {
             _productoService = productoService;
         }
 
         [HttpPost("paginado")]
-        public ActionResult<PaginacionDto<ProductoDto>> GetProductosPaginados([FromBody] FiltroProductoParametroDto filtroProductoParametroDto)
+        public async Task<ActionResult<PaginacionDto<ProductoDto>>> GetProductosPaginados([FromBody] FiltroProductoParametroDto filtroProductoParametroDto)
         {
-            PaginacionDto<ProductoDto> productosPaginados = _productoService.ObtenerProductosPaginados(filtroProductoParametroDto);
+            PaginacionDto<ProductoDto> productosPaginados = await _productoService.ObtenerProductosPaginados(filtroProductoParametroDto);
             return Ok(productosPaginados);
         }
 
@@ -48,17 +49,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ProductoDto> PutModificar(int id, [FromBody] ProductoParametroDto productoParametroDto)
+        public async Task<ActionResult> PutModificar(int id, [FromBody] ProductoParametroDto productoParametroDto)
         {
             productoParametroDto.Id = id;
-            _productoService.Modificar(productoParametroDto);
+            await _productoService.Modificar(productoParametroDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<ProductoDto> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _productoService.Eliminar(id);
+            await _productoService.Eliminar(id);
             return Ok();
         }
     }

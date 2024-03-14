@@ -58,7 +58,7 @@ namespace Application.Implementaciones
             return tipoProducto.Id;
         }
 
-        public async void Modificar(TipoProductoParametroDto tipoProductoParametroDto)
+        public async Task Modificar(TipoProductoParametroDto tipoProductoParametroDto)
         {
             TipoProducto tipoProducto = await _tipoProductoRepository.GetById(tipoProductoParametroDto.Id);
             if (tipoProducto == null)
@@ -70,7 +70,7 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async void Eliminar(int id)
+        public async Task Eliminar(int id)
         {
             TipoProducto tipoProducto = await _tipoProductoRepository.GetById(id);
             if (tipoProducto == null)
@@ -81,9 +81,9 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public PaginacionDto<TipoProductoDto> ObtenerTipoProductosPaginados(FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
+        public async Task<PaginacionDto<TipoProductoDto>> ObtenerTipoProductosPaginados(FiltroTipoProductoParametroDto filtroTipoProductoParametroDto)
         {
-            IQueryable<TipoProducto> consulta = _tipoProductoRepository.GetQueryable();
+            IQueryable<TipoProducto> consulta = await _tipoProductoRepository.GetQueryable();
             if (!string.IsNullOrWhiteSpace(filtroTipoProductoParametroDto.Nombre))
             {
                 consulta = consulta.Where(p => p.Nombre.Contains(filtroTipoProductoParametroDto.Nombre));
@@ -93,7 +93,7 @@ namespace Application.Implementaciones
             // Obtener el totoal de paginas Math.Ceiling 
             int totalPages = (int)Math.Ceiling((double)totalTipoProductos / filtroTipoProductoParametroDto.Limite);
             var excluirElementos = filtroTipoProductoParametroDto.Limite * filtroTipoProductoParametroDto.Pagina;
-            var tipoProductosPaginados = _tipoProductoRepository.GetPaginado(consulta, filtroTipoProductoParametroDto.Limite, excluirElementos);
+            var tipoProductosPaginados = await _tipoProductoRepository.GetPaginado(consulta, filtroTipoProductoParametroDto.Limite, excluirElementos);
             var tipoProductosDto = _mapper.Map<List<TipoProductoDto>>(tipoProductosPaginados);
             var paginacionDto = new PaginacionDto<TipoProductoDto>
             {

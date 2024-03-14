@@ -82,7 +82,7 @@ namespace Application.Implementaciones
             return usuario.Id;
         }
 
-        public async void Modificar(UsuarioParametroDto usuarioParametroDto)
+        public async Task Modificar(UsuarioParametroDto usuarioParametroDto)
         {
             Usuario usuario = await _usuarioRepository.GetById(usuarioParametroDto.Id);
             if (usuario == null)
@@ -96,7 +96,7 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async void Eliminar(int id)
+        public async Task Eliminar(int id)
         {
             Usuario usuario = await _usuarioRepository.GetById(id);
             if (usuario == null)
@@ -107,27 +107,9 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<bool> Login(UsuarioParametroDto usuarioParametroDto)
+        public async Task<PaginacionDto<UsuarioDto>> ObtenerUsuarioPaginado(FiltroUsuarioParametroDto filtroUsuarioParametroDto)
         {
-            bool existeUsuario = await _usuarioRepository.Login(usuarioParametroDto.Email, usuarioParametroDto.Clave);                                   
-            //bool resultado = usuario != null ? true : false; //Operaciòn ternaria
-            return existeUsuario;
-        }
-
-        public async Task<EmpleadoDto> LoginInfo(UsuarioParametroDto usuarioParametroDto)
-        {
-            Usuario usuarioinfo = await _usuarioRepository.LoginInfo(usuarioParametroDto.Email,
-                                                               usuarioParametroDto.Clave);
-            if (usuarioinfo == null)
-                return null;
-
-            EmpleadoDto empleadoDto = _mapper.Map<EmpleadoDto>(usuarioinfo.Empleado);
-            return empleadoDto;
-        }
-
-        public PaginacionDto<UsuarioDto> ObtenerUsuarioPaginado(FiltroUsuarioParametroDto filtroUsuarioParametroDto)
-        {
-            IQueryable<Usuario> consulta = _usuarioRepository.GetQueryable();
+            IQueryable<Usuario> consulta = await _usuarioRepository.GetQueryable();
             if (!string.IsNullOrWhiteSpace(filtroUsuarioParametroDto.Email))
             {
                 consulta = consulta.Where(u => u.Email.Contains(filtroUsuarioParametroDto.Email));
@@ -141,7 +123,7 @@ namespace Application.Implementaciones
             // Obtener el totoal de paginas Math.Ceiling 
             int totalPages = (int)Math.Ceiling((double)totalUsuarios / filtroUsuarioParametroDto.Limite);
             var excluirElementos = filtroUsuarioParametroDto.Limite * filtroUsuarioParametroDto.Pagina;
-            var UsuariosPaginados = _usuarioRepository.GetPaginado(consulta, filtroUsuarioParametroDto.Limite, excluirElementos);
+            var UsuariosPaginados = await _usuarioRepository.GetPaginado(consulta, filtroUsuarioParametroDto.Limite, excluirElementos);
             var UsuariosDto = _mapper.Map<List<UsuarioDto>>(UsuariosPaginados);
             var paginacionDto = new PaginacionDto<UsuarioDto>
             {

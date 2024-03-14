@@ -12,7 +12,8 @@ namespace WebApi.Controllers
     {
         private readonly IPaisService _paisService;
 
-        public PaisController(IPaisService paisService)
+        public PaisController(
+             IPaisService paisService)
         {
             _paisService = paisService;
         }
@@ -33,13 +34,13 @@ namespace WebApi.Controllers
 
         [HttpPost]
         public ActionResult<int> Create([FromBody]  PaisParametroDto paisParametroDto)
-        {
+        { 
             int id = _paisService.Create(paisParametroDto);
             return Ok(id);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<PaisDto> Update(int id, [FromBody]PaisParametroDto paisParametroDto)
+        public ActionResult<PaisDto> Update(int id, [FromBody] PaisParametroDto paisParametroDto)
         {
             paisParametroDto.Id = id;
             _paisService.Update(paisParametroDto);

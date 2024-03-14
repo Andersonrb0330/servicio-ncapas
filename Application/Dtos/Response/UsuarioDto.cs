@@ -7,7 +7,6 @@ namespace Application.Dtos.Response
 	{
         public int Id { get; set; }
         public string Email { get; set; }
-        //public string Clave { get; set; }
 
         public EmpleadoDto Empleado { get; set; }
 

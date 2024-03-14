@@ -1,4 +1,4 @@
-﻿namespace Application.Dtos.Request
+﻿ namespace Application.Dtos.Request
 {
     public class EmpleadoParametroDto
     {

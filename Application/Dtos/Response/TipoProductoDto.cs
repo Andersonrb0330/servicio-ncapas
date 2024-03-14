@@ -10,8 +10,7 @@ namespace Application.Dtos.Response
 
         public TipoProductoDto()
 		{
-		}
-     
+		}    
     }
 
     public class TipoProductoProfile : Profile

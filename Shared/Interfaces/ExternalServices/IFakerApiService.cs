@@ -8,8 +8,6 @@ namespace Shared.Interfaces.ExternalServices
         Task<List<UserModel>> GetUser(int cantidad, string genero);
         Task<List<ProductModel>> GetProduct(int cantidad, string localidad);
         Task<List<PersonModel>> GetPerson(int cantidad, string localidad, string genero);
-
-
     }
 }
 

@@ -10,10 +10,9 @@ namespace Domain.Repositories
         Task Create(Usuario usuario);
         Task<bool> VerificarEmail(string email);
         Task<bool> VerificarEmpleadoUsuario(int idEmpleado);
-        Task<bool> Login(string email, string clave);
         Task<Usuario> LoginInfo(string email, string clave);
-        List<Usuario> GetPaginado (IQueryable<Usuario> queryable, int limite, int excluir);
-        IQueryable<Usuario> GetQueryable();
+        Task<List<Usuario>> GetPaginado (IQueryable<Usuario> queryable, int limite, int excluir);
+        Task<IQueryable<Usuario>> GetQueryable();
     }
 }
 
