@@ -1,29 +1,57 @@
 ﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <DisabledProjects>
+    <String>Persistence/Repository/Repository.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Repository/Repositories/UsuarioRepository.cs" relfile="Repository/Repositories/UsuarioRepository.cs" line="18" column="1" />
+      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Application/Implementaciones/LoginService.cs" relfile="Application/Implementaciones/LoginService.cs" line="33" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations>
+    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
+  </MultiItemStartupConfigurations>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Application/Implementaciones/LoginService.cs">
+    <Files>
+      <File FileName="Application/Implementaciones/LoginService.cs" Line="62" Column="47" />
+      <File FileName="WebApi/appsettings.json" Line="23" Column="30" />
+      <File FileName="WebApi/Controllers/ProductoController.cs" Line="43" Column="10" />
+      <File FileName="WebApi/Controllers/LoginSeguridadController.cs" Line="31" Column="1" />
+      <File FileName="WebApi/Extensions/ServiceCollectionExtensions.cs" Line="20" Column="23" />
+      <File FileName="ExternalServices/Extensions/ServiceCollectionExtensions.cs" Line="13" Column="13" NotebookId="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="EcommerceService">
-            <Node name="2.Core" expanded="True" />
-            <Node name="3.Infraestructure" expanded="True" />
-            <Node name="Shared" expanded="True" />
+          <Node name="EcommerceService" expanded="True">
+            <Node name="1.Presentation" expanded="True">
+              <Node name="WebApi">
+                <Node name="Controllers" expanded="True" />
+                <Node name="Extensions" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="2.Core" expanded="True">
+              <Node name="Application">
+                <Node name="Extensions" expanded="True" />
+                <Node name="Implementaciones" expanded="True">
+                  <Node name="LoginService.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+            <Node name="3.Infraestructure" expanded="True">
+              <Node name="ExternalServices" expanded="True">
+                <Node name="Extensions" expanded="True" />
+              </Node>
+              <Node name="Persistence" expanded="True">
+                <Node name="Extensions" expanded="True" />
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Repository/Repositories/UsuarioRepository.cs" relfile="Repository/Repositories/UsuarioRepository.cs" line="18" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <DisabledProjects>
-    <String>Persistence/Repository/Repository.csproj</String>
-  </DisabledProjects>
   <MonoDevelop.Ide.ItemProperties.1.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
-  <MultiItemStartupConfigurations>
-    <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
-  </MultiItemStartupConfigurations>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>

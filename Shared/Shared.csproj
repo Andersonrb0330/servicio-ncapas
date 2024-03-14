@@ -15,6 +15,7 @@
     <None Remove="Models\Reqres\" />
     <None Remove="Parameters\" />
     <None Remove="Parameters\ReqresApiServiceClient\" />
+    <None Remove="Models\Seguridad\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
@@ -25,5 +26,6 @@
     <Folder Include="Models\Reqres\" />
     <Folder Include="Parameters\" />
     <Folder Include="Parameters\ReqresApiServiceClient\" />
+    <Folder Include="Models\Seguridad\" />
   </ItemGroup>
 </Project>
