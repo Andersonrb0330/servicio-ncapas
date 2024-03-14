@@ -8,11 +8,9 @@ namespace Application.Interfaces
         Task<List<UsuarioDto>> ObtenerTodo();
         Task<UsuarioDto> ObtenerPorId(int id);
         Task<int> Crear(UsuarioParametroDto usuarioParametroDto);
-        void Modificar(UsuarioParametroDto usuarioParametroDto);
-        void Eliminar(int id);
-        Task<bool> Login(UsuarioParametroDto usuarioParametroDto);
-        Task<EmpleadoDto> LoginInfo(UsuarioParametroDto usuarioParametroDto);
-        PaginacionDto<UsuarioDto> ObtenerUsuarioPaginado(FiltroUsuarioParametroDto filtroUsuarioParametroDto);
+        Task Modificar(UsuarioParametroDto usuarioParametroDto);
+        Task Eliminar(int id);
+        Task<PaginacionDto<UsuarioDto>> ObtenerUsuarioPaginado(FiltroUsuarioParametroDto filtroUsuarioParametroDto);
     }
 }
 

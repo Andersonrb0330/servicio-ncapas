@@ -2,23 +2,26 @@
 using Application.Dtos.Request;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/empresas")]
     public class EmpresaController : Controller
     {
         private readonly IEmpresaService _empresaService;
 
-        public EmpresaController(IEmpresaService empresaService)
+        public EmpresaController(
+            IEmpresaService empresaService)
         {
             _empresaService = empresaService;
         }
 
         [HttpPost("paginado")]
-        public ActionResult<PaginacionDto<EmpresaDto>> GetEmpresaPaginados([FromBody] FiltroEmpresaParametroDto filtroEmpresaParametroDto)
+        public async Task<ActionResult<PaginacionDto<EmpresaDto>>> GetEmpresaPaginados([FromBody] FiltroEmpresaParametroDto filtroEmpresaParametroDto)
         {
-            PaginacionDto<EmpresaDto> empresaPaginados  = _empresaService.ObtenerEmpresaPaginado(filtroEmpresaParametroDto);
+            PaginacionDto<EmpresaDto> empresaPaginados  = await _empresaService.ObtenerEmpresaPaginado(filtroEmpresaParametroDto);
             return empresaPaginados;
         }
 
@@ -37,24 +40,24 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> PostCrearEmpresa([FromBody]EmpresaParametroDto empresaParametroDto)
+        public async Task<ActionResult<int>> PostCrearEmpresa([FromBody] EmpresaParametroDto empresaParametroDto)
         {
             int id = await _empresaService.Crear(empresaParametroDto);
             return Ok(id);
         }
 
         [HttpPut("{id}")]
-        public ActionResult PutModificarEmpresa(int id, [FromBody] EmpresaParametroDto empresaParametroDto)
+        public async Task<ActionResult> PutModificarEmpresa(int id, [FromBody] EmpresaParametroDto empresaParametroDto)
         {
             empresaParametroDto.Id = id;
-            _empresaService.Modificar(empresaParametroDto);
+            await _empresaService.Modificar(empresaParametroDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteEliminarEmpresa(int id)
+        public async Task<ActionResult> DeleteEliminarEmpresa(int id)
         {
-            _empresaService.Eliminar(id);
+            await _empresaService.Eliminar(id);
             return Ok();
         }     
     }

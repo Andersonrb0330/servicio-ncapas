@@ -13,7 +13,6 @@ namespace Application.Dtos.Response
 		}
 	}
 
-
     public class EmpresaProfile : Profile
     {
         public EmpresaProfile()

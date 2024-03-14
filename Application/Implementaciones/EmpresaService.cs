@@ -58,8 +58,7 @@ namespace Application.Implementaciones
             return empresa.Id;
         }
 
-
-        public async void Modificar(EmpresaParametroDto empresaParametroDto)
+        public async Task Modificar(EmpresaParametroDto empresaParametroDto)
         {
             Empresa empresa = await _empresaRepository.GetById(empresaParametroDto.Id);
             if (empresa == null) {
@@ -67,10 +66,9 @@ namespace Application.Implementaciones
             }
             empresa.Nombre = empresaParametroDto.Nombre;
             await _unitOfWork.SaveChangesAsync();
-
         }
 
-        public async void Eliminar(int id)
+        public async Task Eliminar(int id)
         {
             Empresa empresa = await _empresaRepository.GetById(id);
             if (empresa == null)
@@ -81,9 +79,9 @@ namespace Application.Implementaciones
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public PaginacionDto<EmpresaDto> ObtenerEmpresaPaginado(FiltroEmpresaParametroDto filtroEmpresaParametroDto)
+        public async Task<PaginacionDto<EmpresaDto>> ObtenerEmpresaPaginado(FiltroEmpresaParametroDto filtroEmpresaParametroDto)
         {
-            IQueryable<Empresa> consulta = _empresaRepository.GetQueryable();
+            IQueryable<Empresa> consulta = await _empresaRepository.GetQueryable();
             if (!string.IsNullOrWhiteSpace(filtroEmpresaParametroDto.Nombre))
             {
                 consulta = consulta.Where(e => e.Nombre.Contains(filtroEmpresaParametroDto.Nombre));
@@ -93,7 +91,7 @@ namespace Application.Implementaciones
             // Obtener el totoal de paginas Math.Ceiling 
             int totalPages = (int)Math.Ceiling((double)totalEmpresas / filtroEmpresaParametroDto.Limite);
             var excluirElementos = filtroEmpresaParametroDto.Limite * filtroEmpresaParametroDto.Pagina;
-            var empresaPaginados = _empresaRepository.GetPaginado(consulta, filtroEmpresaParametroDto.Limite, excluirElementos);
+            var empresaPaginados = await _empresaRepository.GetPaginado(consulta, filtroEmpresaParametroDto.Limite, excluirElementos);
             var empresaDto = _mapper.Map<List<EmpresaDto>>(empresaPaginados);
             var paginacionDto = new PaginacionDto<EmpresaDto>
             {

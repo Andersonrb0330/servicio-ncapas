@@ -16,8 +16,7 @@
 
         public UserModel()
         {
-        }
-        
+        }        
     }
 }
 

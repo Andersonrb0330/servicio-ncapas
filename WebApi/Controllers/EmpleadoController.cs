@@ -1,24 +1,27 @@
 ﻿using Application.Dtos.Request;
 using Application.Dtos.Response;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     [Route("api/empleado")]
     public class EmpleadoController : Controller
     {
         private readonly IEmpleadoService _empleadoService;
 
-        public EmpleadoController(IEmpleadoService empleadoService)
+        public EmpleadoController(
+            IEmpleadoService empleadoService)
         {
             _empleadoService = empleadoService; 
         }
 
         [HttpPost("paginado")]
-        public ActionResult<PaginacionDto<EmpleadoDto>> GetEmpleadoPaginado([FromBody] FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
+        public async Task<ActionResult<PaginacionDto<EmpleadoDto>>> GetEmpleadoPaginado([FromBody] FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
         {
-            PaginacionDto<EmpleadoDto> empleadoDto = _empleadoService.ObtenerEmpleadoPaginado(filtroEmpleadoParametroDto);
+            PaginacionDto<EmpleadoDto> empleadoDto = await _empleadoService.ObtenerEmpleadoPaginado(filtroEmpleadoParametroDto);
             return empleadoDto;            
         }
 
@@ -44,17 +47,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<EmpleadoDto> Update(int id, [FromBody] EmpleadoParametroDto empleadoParametroDto)
+        public async Task <ActionResult> Update(int id, [FromBody] EmpleadoParametroDto empleadoParametroDto)
         {
             empleadoParametroDto.Id = id;
-            _empleadoService.Update(empleadoParametroDto);
+            await _empleadoService.Update(empleadoParametroDto);
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<EmpleadoDto> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            _empleadoService.Delete(id);
+            await _empleadoService.Delete(id);
             return Ok();
         }
     }

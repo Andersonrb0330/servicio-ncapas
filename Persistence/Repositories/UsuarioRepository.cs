@@ -14,14 +14,6 @@ namespace Persistence.Repositories
             _ecommerceContext = ecommerceContext;
         }
 
-        public async Task<bool> Login(string email, string clave)
-        {
-            bool existeUsuario = await _ecommerceContext.Usuarios
-                 //Any te devuelve un bool, true or false, 
-                 .AnyAsync(u => u.Email == email && u.Clave == clave);
-            return existeUsuario;
-        }
-
         public async Task<Usuario> LoginInfo(string email, string clave)
         {
             Usuario usuarioinfo = await _ecommerceContext.Usuarios
@@ -78,7 +70,7 @@ namespace Persistence.Repositories
             _ecommerceContext.SaveChanges();            
         }
 
-        public List<Usuario> GetPaginado(IQueryable<Usuario> queryable, int limite, int excluir)
+        public async Task<List<Usuario>> GetPaginado(IQueryable<Usuario> queryable, int limite, int excluir)
         {
             return queryable
                     .OrderBy(p => p.Id)
@@ -87,7 +79,7 @@ namespace Persistence.Repositories
                     .ToList();
         }
 
-        public IQueryable<Usuario> GetQueryable()
+        public async Task<IQueryable<Usuario>> GetQueryable()
         {
             IQueryable<Usuario> usuario = _ecommerceContext.Usuarios
                 .Include(u => u.Empleado)

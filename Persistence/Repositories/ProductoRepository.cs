@@ -25,7 +25,7 @@ namespace Persistence.Repositories
 
         public async Task<Producto> GetById(int id)
         {
-            Producto producto = await _ecommerceContext.Productos
+            Producto producto = await  _ecommerceContext.Productos
                                 .Include(p => p.TipoProducto)
                                 .FirstOrDefaultAsync(p => p.Id == id);
             return producto;
@@ -41,7 +41,7 @@ namespace Persistence.Repositories
             _ecommerceContext.Productos.Remove(producto);
         }
 
-        public List<Producto> GetPaginado(IQueryable<Producto> queryable, int limite, int excluir)
+        public async Task<List<Producto>> GetPaginado(IQueryable<Producto> queryable, int limite, int excluir)
         {
             return queryable
                     .OrderBy(p => p.Id)
@@ -50,7 +50,7 @@ namespace Persistence.Repositories
                     .ToList();
         }
 
-        public IQueryable<Producto> GetQueryable()
+        public async Task<IQueryable<Producto>> GetQueryable()
         {
             IQueryable<Producto> producto = _ecommerceContext.Productos.AsQueryable();
             return producto;

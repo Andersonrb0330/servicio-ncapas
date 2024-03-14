@@ -8,9 +8,9 @@ namespace Application.Interfaces
 		Task<List<ProductoDto>> ObtenerTodo();
 		Task<ProductoDto> ObtenerPorId(int id);
 		Task<int> Crear(ProductoParametroDto productoParametroDto);
-		void Modificar(ProductoParametroDto productoParametroDto);
-		void Eliminar(int id);
-        PaginacionDto<ProductoDto> ObtenerProductosPaginados(FiltroProductoParametroDto filtroProductoParametroDto);
+		Task Modificar(ProductoParametroDto productoParametroDto);
+		Task Eliminar(int id);
+        Task<PaginacionDto<ProductoDto>> ObtenerProductosPaginados(FiltroProductoParametroDto filtroProductoParametroDto);
     } 
 }
 

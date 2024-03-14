@@ -62,11 +62,8 @@ namespace Application.Implementaciones
             {
                 throw new Exception($"El ID: {id} no existe");
             }
-            _paisRepository.Delete(pais);
-            
+            _paisRepository.Delete(pais);           
         }
-
-       
     }
 }
 

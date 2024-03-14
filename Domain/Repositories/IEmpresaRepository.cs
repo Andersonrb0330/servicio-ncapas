@@ -9,8 +9,8 @@ namespace Domain.Repositories
 		Task Create(Empresa empresa);
 		void Delete(Empresa empresa);
         Task<bool> VerificarEmpresa(int id);
-		List<Empresa> GetPaginado (IQueryable<Empresa> queryble, int limite, int excluir);
-		IQueryable<Empresa> GetQueryable();
+		Task<List<Empresa>> GetPaginado (IQueryable<Empresa> queryble, int limite, int excluir);
+		Task<IQueryable<Empresa>> GetQueryable();
     }
 }
 

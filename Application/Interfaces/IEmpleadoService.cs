@@ -8,9 +8,9 @@ namespace Application.Interfaces
 		Task<List<EmpleadoDto>> Get();
 		Task<EmpleadoDto> GetById(int id);
         Task<int> Create(EmpleadoParametroDto empleadoParametroDto);
-		void Update(EmpleadoParametroDto empleadoParametroDto);
-		void Delete(int id);
-		PaginacionDto<EmpleadoDto> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto);
+		Task Update(EmpleadoParametroDto empleadoParametroDto);
+		Task Delete(int id);
+		Task<PaginacionDto<EmpleadoDto>> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto);
 	}
 }
 

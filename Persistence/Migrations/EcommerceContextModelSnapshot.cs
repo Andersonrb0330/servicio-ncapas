@@ -21,7 +21,32 @@ namespace Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Empleado", b =>
+            modelBuilder.Entity("Domain.Entity.DetalleRolEmpleado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdEmpleado")
+                        .HasColumnType("int")
+                        .HasColumnName("IdEmpleado");
+
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int")
+                        .HasColumnName("IdRol");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEmpleado");
+
+                    b.HasIndex("IdRol");
+
+                    b.ToTable("DetalleRolEmpleado", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entity.Empleado", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,7 +95,7 @@ namespace Persistence.Migrations
                     b.ToTable("Empleado", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Empresa", b =>
+            modelBuilder.Entity("Domain.Entity.Empresa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -90,7 +115,7 @@ namespace Persistence.Migrations
                     b.ToTable("Empresa", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Producto", b =>
+            modelBuilder.Entity("Domain.Entity.Producto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +160,27 @@ namespace Persistence.Migrations
                     b.ToTable("Producto", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.TipoProducto", b =>
+            modelBuilder.Entity("Domain.Entity.Rol", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("Nombre");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rol", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entity.TipoProducto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +200,7 @@ namespace Persistence.Migrations
                     b.ToTable("TipoProducto", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Usuario", b =>
+            modelBuilder.Entity("Domain.Entity.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -187,9 +232,28 @@ namespace Persistence.Migrations
                     b.ToTable("Usuario", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Empleado", b =>
+            modelBuilder.Entity("Domain.Entity.DetalleRolEmpleado", b =>
                 {
-                    b.HasOne("Domain.Empresa", "Empresa")
+                    b.HasOne("Domain.Entity.Empleado", "Empleado")
+                        .WithMany("DetalleRolEmpleado")
+                        .HasForeignKey("IdEmpleado")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entity.Rol", "Rol")
+                        .WithMany("DetalleRolEmpleado")
+                        .HasForeignKey("IdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Empleado");
+
+                    b.Navigation("Rol");
+                });
+
+            modelBuilder.Entity("Domain.Entity.Empleado", b =>
+                {
+                    b.HasOne("Domain.Entity.Empresa", "Empresa")
                         .WithMany("Empleados")
                         .HasForeignKey("IdEmpresa")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -198,9 +262,9 @@ namespace Persistence.Migrations
                     b.Navigation("Empresa");
                 });
 
-            modelBuilder.Entity("Domain.Producto", b =>
+            modelBuilder.Entity("Domain.Entity.Producto", b =>
                 {
-                    b.HasOne("Domain.TipoProducto", "TipoProducto")
+                    b.HasOne("Domain.Entity.TipoProducto", "TipoProducto")
                         .WithMany("Productos")
                         .HasForeignKey("IdTipoProducto")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -209,9 +273,9 @@ namespace Persistence.Migrations
                     b.Navigation("TipoProducto");
                 });
 
-            modelBuilder.Entity("Domain.Usuario", b =>
+            modelBuilder.Entity("Domain.Entity.Usuario", b =>
                 {
-                    b.HasOne("Domain.Empleado", "Empleado")
+                    b.HasOne("Domain.Entity.Empleado", "Empleado")
                         .WithMany()
                         .HasForeignKey("IdEmpleado")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,12 +284,22 @@ namespace Persistence.Migrations
                     b.Navigation("Empleado");
                 });
 
-            modelBuilder.Entity("Domain.Empresa", b =>
+            modelBuilder.Entity("Domain.Entity.Empleado", b =>
+                {
+                    b.Navigation("DetalleRolEmpleado");
+                });
+
+            modelBuilder.Entity("Domain.Entity.Empresa", b =>
                 {
                     b.Navigation("Empleados");
                 });
 
-            modelBuilder.Entity("Domain.TipoProducto", b =>
+            modelBuilder.Entity("Domain.Entity.Rol", b =>
+                {
+                    b.Navigation("DetalleRolEmpleado");
+                });
+
+            modelBuilder.Entity("Domain.Entity.TipoProducto", b =>
                 {
                     b.Navigation("Productos");
                 });

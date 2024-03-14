@@ -9,6 +9,5 @@ namespace Application.Dtos.Request
 		public PaisParametroDto()
 		{
 		}
-
 	}
 }

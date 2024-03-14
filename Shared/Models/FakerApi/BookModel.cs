@@ -13,8 +13,7 @@
         public string Publisher { get; set; }
 
         public BookModel()
-		{
-			
+		{			
 		}
 	}
 }

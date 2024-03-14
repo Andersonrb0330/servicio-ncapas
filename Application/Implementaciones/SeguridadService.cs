@@ -13,25 +13,25 @@ using Shared.Models.Seguridad;
 
 namespace Application.Implementaciones
 {
-    public class LoginService : ILoginService
-	{
-        private readonly ILoginRepository _loginRepository;
+    public class SeguridadService : ISeguridadService
+    {
+        private readonly IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
         private readonly JwtConfig _jwtConfig;
 
-        public LoginService(
-            ILoginRepository loginRepository,
+        public SeguridadService(
+            IUsuarioRepository usuarioRepository,
             IMapper mapper,
             IOptions<JwtConfig> options)
         {
-            _loginRepository = loginRepository;
+            _usuarioRepository = usuarioRepository;
             _jwtConfig = options.Value;
             _mapper = mapper;
         }
 
-        public async Task<EmpleadoDto> Login(UsuarioParametroDto usuarioParametroDto)
+        public async Task<SeguridadEmpleadoDto> Login(UsuarioParametroDto usuarioParametroDto)
         {
-            Usuario usuario = await _loginRepository.Login(usuarioParametroDto.Email,
+            Usuario usuario = await _usuarioRepository.LoginInfo(usuarioParametroDto.Email,
                                                     usuarioParametroDto.Clave);
             if (usuario == null)
                 return null;
@@ -41,7 +41,12 @@ namespace Application.Implementaciones
             // llamamos al mètodo 
             string token = GenerateJwtToken(empleadoDto);
 
-            return empleadoDto;
+            var seguridadEmpleadoDto = new SeguridadEmpleadoDto()
+            {
+                Token = token,
+                Empleado = empleadoDto
+            };
+            return seguridadEmpleadoDto;
         }
 
         public string GenerateJwtToken(EmpleadoDto empleadoDto)

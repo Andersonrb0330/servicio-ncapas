@@ -9,8 +9,8 @@ namespace Domain.Repositories
 		Task Create(TipoProducto tipoProducto);
 		void Delete(TipoProducto tipoProducto);
 		Task<bool> VerificarTipoProducto(int id);
-		List<TipoProducto> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir);
-		IQueryable<TipoProducto> GetQueryable();
+		Task<List<TipoProducto>> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir);
+		Task<IQueryable<TipoProducto>> GetQueryable();
 	}
 }
 

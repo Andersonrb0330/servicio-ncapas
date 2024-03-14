@@ -44,7 +44,7 @@ namespace Persistence.Repositories
             _ecommerceContext.TipoProductos.Remove(tipoProducto);
         }
 
-        public List<TipoProducto> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir)
+        public async Task<List<TipoProducto>> GetPaginado(IQueryable<TipoProducto> queryable, int limite, int excluir)
         {
             return queryable
                     .OrderBy(p => p.Id)
@@ -53,7 +53,7 @@ namespace Persistence.Repositories
                     .ToList();
         }
 
-        public IQueryable<TipoProducto> GetQueryable()
+        public async Task<IQueryable<TipoProducto>> GetQueryable()
         {
             IQueryable<TipoProducto> tipoProducto = _ecommerceContext.TipoProductos.AsQueryable();
             return tipoProducto;

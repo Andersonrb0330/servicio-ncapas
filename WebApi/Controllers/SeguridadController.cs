@@ -10,31 +10,19 @@ namespace WebApi.Controllers
     [Route("api/seguridad")]
     public class SeguridadController : Controller
     {
-        private readonly ILoginService _loginService;
+        private readonly ISeguridadService _seguridadService;
 
         public SeguridadController(
-            ILoginService loginService)
+            ISeguridadService seguridadService)
         {
-            _loginService = loginService;
+            _seguridadService = seguridadService;
         }
 
         [HttpPost]
-        public async Task<ActionResult<EmpleadoDto>> Login([FromBody]UsuarioParametroDto usuarioParametroDto)
+        public async Task<ActionResult<SeguridadEmpleadoDto>> Login([FromBody]UsuarioParametroDto usuarioParametroDto)
         {
-           EmpleadoDto empleadoDto = await _loginService.Login(usuarioParametroDto);
-           return empleadoDto; 
-        }
-
-        [HttpGet("token")]
-        public ActionResult<string> Token()
-        {
-            var empleado = new EmpleadoDto
-            {
-                Id = 1,
-                Nombre = "Test"
-            };
-            var token = _loginService.GenerateJwtToken(empleado);
-            return token;
+            SeguridadEmpleadoDto empleadoDto = await _seguridadService.Login(usuarioParametroDto);
+            return empleadoDto; 
         }
     }
 }

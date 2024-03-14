@@ -44,7 +44,6 @@ namespace WebApi.Controllers
             List<PersonModel> persons = await _fakerApiService.GetPerson(cantidad, localidad, genero);
             return persons;
         }
-   
     }
 }
 

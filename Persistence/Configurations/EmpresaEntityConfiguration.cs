@@ -1,11 +1,10 @@
-﻿using System.Reflection.Emit;
-using Domain.Entity;
+﻿using Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configurations
 {
-	public class EmpresaEntityConfiguration : IEntityTypeConfiguration<Empresa>
+    public class EmpresaEntityConfiguration : IEntityTypeConfiguration<Empresa>
     {
 		public EmpresaEntityConfiguration()
 		{

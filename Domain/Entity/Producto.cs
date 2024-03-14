@@ -10,10 +10,8 @@
         public double Precio { get; set; }
 
         public int IdTipoProducto { get; set; }
-
         public virtual TipoProducto TipoProducto { get; set; }
         
         public Producto() { }
-
     }
 }

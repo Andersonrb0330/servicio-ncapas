@@ -8,9 +8,9 @@ namespace Application.Interfaces
 		Task<List<EmpresaDto>> ObtenerTodo();
 		Task<EmpresaDto> ObtenerPorId(int id);
 		Task<int> Crear(EmpresaParametroDto empresaParametroDto);
-		void Modificar(EmpresaParametroDto empresaParametroDto);
-		void Eliminar(int id);
-		PaginacionDto<EmpresaDto> ObtenerEmpresaPaginado(FiltroEmpresaParametroDto filtroEmpresaParametroDto);
+		Task Modificar(EmpresaParametroDto empresaParametroDto);
+		Task Eliminar(int id);
+		Task<PaginacionDto<EmpresaDto>> ObtenerEmpresaPaginado(FiltroEmpresaParametroDto filtroEmpresaParametroDto);
 	}
 } 
 

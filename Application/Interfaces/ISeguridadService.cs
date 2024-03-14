@@ -3,9 +3,9 @@ using Application.Dtos.Response;
 
 namespace Application.Interfaces
 {
-	public interface ILoginService
+	public interface ISeguridadService
 	{
-        Task<EmpleadoDto> Login(UsuarioParametroDto usuarioParametroDto);
+        Task<SeguridadEmpleadoDto> Login(UsuarioParametroDto usuarioParametroDto);
         string GenerateJwtToken(EmpleadoDto empleadoDto);
     }
 }
