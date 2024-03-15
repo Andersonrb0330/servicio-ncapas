@@ -7,8 +7,8 @@ namespace Application.Dtos.Response
 	{
 		public int Id { get; set; }
 
-		public RolDto RolDto { get; set; }
-		public EmpleadoDto EmpleadoDto { get; set; }
+		public RolDto Rol { get; set; }
+		public EmpleadoDto Empleado { get; set; }
 
 		public DetalleRolEmpleadoDto()
 		{

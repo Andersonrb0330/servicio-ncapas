@@ -15,6 +15,7 @@ namespace Persistence.Context
         public DbSet<Empresa> Empresas { get; set; }
         public DbSet<Empleado> Empleados { get ; set ; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<DetalleRolEmpleado> DetalleRolEmpleados { get ; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

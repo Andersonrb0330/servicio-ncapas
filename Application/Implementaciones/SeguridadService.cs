@@ -38,8 +38,8 @@ namespace Application.Implementaciones
 
             EmpleadoDto empleadoDto = _mapper.Map<EmpleadoDto>(usuario.Empleado);
 
-            // llamamos al mètodo 
-            string token = GenerateJwtToken(empleadoDto);
+            // llamamos al metodo 
+            string token = GenerateJwtToken(usuario.Empleado);
 
             var seguridadEmpleadoDto = new SeguridadEmpleadoDto()
             {
@@ -49,26 +49,34 @@ namespace Application.Implementaciones
             return seguridadEmpleadoDto;
         }
 
-        public string GenerateJwtToken(EmpleadoDto empleadoDto)
+        public string GenerateJwtToken(Empleado empleado)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtConfig.Key);
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, empleado.Id.ToString()),
+                new Claim(ClaimTypes.Name, empleado.Nombre)
+            };
+
+            foreach (var detalleRol in empleado.DetalleRolEmpleado)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, detalleRol.Rol.Nombre));
+            }
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, empleadoDto.Id.ToString()),
-                    new Claim(ClaimTypes.Name, empleadoDto.Nombre),
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtConfig.ExpiryInMinutes),
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _jwtConfig.Issuer,
                 Audience = _jwtConfig.Audience
             };
+
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
     }
-}
 
+}

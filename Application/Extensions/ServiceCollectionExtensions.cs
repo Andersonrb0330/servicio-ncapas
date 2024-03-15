@@ -23,6 +23,7 @@ namespace Application.Extensions
             services.AddTransient<IPaisService, PaisService>();
             services.AddTransient<ISeguridadService, SeguridadService>();
             services.AddTransient<IRolService, RolService>();
+            services.AddTransient<IDetalleRolEmpleadoService, DetalleRolEmpleadoService>();
 
             // Aquì damos a enteder que van a trabajar juntos las VALIDACIONES
             services.AddControllersWithViews().AddFluentValidation();

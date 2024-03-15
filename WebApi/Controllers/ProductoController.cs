@@ -27,6 +27,7 @@ namespace WebApi.Controllers
             return Ok(productosPaginados);
         }
 
+        [Authorize(Roles = "ADMIN,JEFE")]
         [HttpGet]
         public async Task<ActionResult<List<ProductoDto>>> GetObtenerTodo()
         {

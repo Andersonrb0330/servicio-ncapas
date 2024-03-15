@@ -111,7 +111,7 @@ namespace Application.Implementaciones
 
         public async Task<PaginacionDto<EmpleadoDto>> ObtenerEmpleadoPaginado(FiltroEmpleadoParametroDto filtroEmpleadoParametroDto)
         {
-            IQueryable<Empleado> consulta = await _empleadoRepository.GetQueryable();
+            IQueryable<Empleado> consulta = _empleadoRepository.GetQueryable();
             if (!string.IsNullOrWhiteSpace(filtroEmpleadoParametroDto.Nombre))
             {
                 consulta = consulta.Where(e => e.Nombre.Contains(filtroEmpleadoParametroDto.Nombre));

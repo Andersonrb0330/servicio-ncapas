@@ -18,6 +18,8 @@ namespace Persistence.Repositories
         {
             Usuario usuarioinfo = await _ecommerceContext.Usuarios
                 .Include(u => u.Empleado)
+                .ThenInclude(e => e.DetalleRolEmpleado)
+                .ThenInclude(d => d.Rol)
                 .FirstOrDefaultAsync(u => u.Email == email && u.Clave == clave);
             return usuarioinfo;
         }
