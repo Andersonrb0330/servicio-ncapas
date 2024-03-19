@@ -50,20 +50,18 @@ namespace Application.Implementaciones
         }
 
         public string GenerateJwtToken(Empleado empleado)
-        {
+         {
+            string roles = GetRolUsuario(empleado.DetalleRolEmpleado);
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtConfig.Key);
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, empleado.Id.ToString()),
-                new Claim(ClaimTypes.Name, empleado.Nombre)
+                new Claim(ClaimTypes.Name, empleado.Nombre),
+                new Claim(ClaimTypes.Role, roles)
             };
-
-            foreach (var detalleRol in empleado.DetalleRolEmpleado)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, detalleRol.Rol.Nombre));
-            }
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -76,6 +74,32 @@ namespace Application.Implementaciones
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        public string GetRolUsuario(ICollection<DetalleRolEmpleado> detalleRolEmpleados)
+        {
+            string roles = string.Empty;
+            /*int contador = 0;
+            foreach (var detalleRol in detalleRolEmpleados)
+            {
+                contador++;
+                if (contador == 1)
+                {
+                    roles = detalleRol.Rol.Nombre;
+                }
+                else
+                {
+                    roles = roles + "," + detalleRol.Rol.Nombre;
+                }
+            }*/
+
+            // ,ADMIN,CONTADOR
+            foreach (var detalleRol in detalleRolEmpleados)
+            {
+                roles = roles + "," + detalleRol.Rol.Nombre;
+            }
+            roles = roles.Substring(1);
+            return roles;
         }
     }
 

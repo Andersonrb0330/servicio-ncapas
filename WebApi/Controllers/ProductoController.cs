@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [Authorize]
+    [Authorize(Roles = "ADMIN,JEFE")]
     [Route("api/productos")]
     public class ProductoController : Controller
     {
@@ -27,7 +28,6 @@ namespace WebApi.Controllers
             return Ok(productosPaginados);
         }
 
-        [Authorize(Roles = "ADMIN,JEFE")]
         [HttpGet]
         public async Task<ActionResult<List<ProductoDto>>> GetObtenerTodo()
         {

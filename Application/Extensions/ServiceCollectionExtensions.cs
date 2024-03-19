@@ -32,6 +32,8 @@ namespace Application.Extensions
             services.AddTransient<IValidator<EmpresaParametroDto>, EmpresaParametroDtoValidator>();
             services.AddTransient<IValidator<EmpleadoParametroDto>, EmpleadoParametroDtoValidator>();
             services.AddTransient<IValidator<UsuarioParametroDto>, UsuarioParametroDtoValidator>();
+            services.AddTransient<IValidator<RolParametroDto>, RolParametroDtoValidator>();
+            services.AddTransient<IValidator<DetalleRolEmpleadoParametroDto>, DetalleRolEmpleadoDtoValidator>();
         }
     }
 }

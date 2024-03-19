@@ -8,6 +8,7 @@ namespace Application.Interfaces
 	{
         Task<SeguridadEmpleadoDto> Login(UsuarioParametroDto usuarioParametroDto);
         string GenerateJwtToken(Empleado empleado);
+        string GetRolUsuario(ICollection<DetalleRolEmpleado> detalleRolEmpleados);
     }
 }
 

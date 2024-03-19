@@ -4,23 +4,27 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
+using FluentValidation;
 
 namespace Application.Implementaciones
 {
     public class RolService : IRolService
 	{
         private readonly IRolRepository _rolRepository;
+        private readonly IValidator<RolParametroDto> _validarRol;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
         public RolService(
             IRolRepository rolRepository,
+            IValidator<RolParametroDto> validator,
             IUnitOfWork unitOfWork,
             IMapper mapper)
 		{
             _rolRepository = rolRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _validarRol = validator;
 		}
 
         public async Task<List<RolDto>> Get()
@@ -39,6 +43,12 @@ namespace Application.Implementaciones
 
         public async Task<int> Crete(RolParametroDto rolParametroDto)
         {
+            var validationResult = _validarRol.Validate(rolParametroDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             Rol rol = new Rol
             {
                 Nombre = rolParametroDto.Nombre

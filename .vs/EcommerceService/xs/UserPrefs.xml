@@ -1,8 +1,11 @@
 ﻿<Properties StartupConfiguration="{2FDD3E45-40C2-4324-B4B0-A6B5B553AC40}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Application/Implementaciones/SeguridadService.cs">
     <Files>
-      <File FileName="Application/Implementaciones/SeguridadService.cs" Line="64" Column="14" />
-      <File FileName="WebApi/Controllers/ProductoController.cs" Line="30" Column="42" />
+      <File FileName="Application/Implementaciones/DetalleRolEmpleadoService.cs" />
+      <File FileName="Application/Implementaciones/SeguridadService.cs" Line="96" Column="31" />
+      <File FileName="WebApi/Program.cs" Line="31" Column="1" />
+      <File FileName="WebApi/Properties/launchSettings.json" Line="24" Column="47" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -10,34 +13,26 @@
           <Node name="EcommerceService">
             <Node name="2.Core" expanded="True">
               <Node name="Application">
-                <Node name="Dtos" expanded="True">
-                  <Node name="Response" expanded="True" />
-                </Node>
-                <Node name="Implementaciones">
+                <Node name="Implementaciones" expanded="True">
                   <Node name="SeguridadService.cs" selected="True" />
                 </Node>
               </Node>
-              <Node name="Domain">
-                <Node name="Entity" expanded="True" />
-                <Node name="Repositories" expanded="True" />
-              </Node>
             </Node>
-            <Node name="3.Infraestructure" expanded="True">
-              <Node name="Persistence">
-                <Node name="Repositories" expanded="True" />
+            <Node name="Shared" expanded="True">
+              <Node name="Models" expanded="True">
+                <Node name="Seguridad" expanded="True" />
               </Node>
             </Node>
           </Node>
         </State>
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>contador</Value>
+        </State>
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <DisabledProjects>
-    <String>Persistence/Repository/Repository.csproj</String>
-  </DisabledProjects>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.1.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/breidynrios/Desktop/Ecommerce/servicio-ncapas/Repository/Repositories/UsuarioRepository.cs" relfile="Repository/Repositories/UsuarioRepository.cs" line="18" column="1" />
@@ -46,4 +41,9 @@
   <MultiItemStartupConfigurations>
     <MultiItemSolutionRunConfiguration Id="Varios proyectos" Name="Varios proyectos" />
   </MultiItemStartupConfigurations>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>Persistence/Repository/Repository.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.ItemProperties.1.Presentation.WebApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

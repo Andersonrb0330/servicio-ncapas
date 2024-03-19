@@ -43,7 +43,7 @@ namespace Application.Implementaciones
 
         public async Task<int> Crear(TipoProductoParametroDto tipoProductoParametroDto)
         {
-             var validationResult = _validarTipoProducto.Validate(tipoProductoParametroDto);
+            var validationResult = _validarTipoProducto.Validate(tipoProductoParametroDto);
             if (!validationResult.IsValid)
             {
                 throw new ValidationException(validationResult.Errors);

@@ -4,6 +4,7 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Entity;
 using Domain.Repositories;
+using FluentValidation;
 
 namespace Application.Implementaciones
 {
@@ -12,6 +13,7 @@ namespace Application.Implementaciones
         private readonly IDetalleRolEmpleadoRepository _detalleRolEmpleadoRepository;
         private readonly IEmpleadoRepository _empleadoRepository;
         private readonly IRolRepository _rolRepository;
+        private readonly IValidator<DetalleRolEmpleadoParametroDto> _validarDetalleRolEmpleado;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -19,12 +21,14 @@ namespace Application.Implementaciones
             IDetalleRolEmpleadoRepository detalleRolEmpleadoRepository,
             IEmpleadoRepository empleadoRepository,
             IRolRepository rolRepository,
+            IValidator<DetalleRolEmpleadoParametroDto> validator,
             IUnitOfWork unitOfWork,
             IMapper mapper)
 		{
             _detalleRolEmpleadoRepository = detalleRolEmpleadoRepository;
             _empleadoRepository = empleadoRepository;
             _rolRepository = rolRepository;
+            _validarDetalleRolEmpleado = validator;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
 		}
@@ -45,6 +49,12 @@ namespace Application.Implementaciones
 
         public async Task<int> Create(DetalleRolEmpleadoParametroDto detalleRolEmpleadoParametroDto)
         {
+            var validationResult = _validarDetalleRolEmpleado.Validate(detalleRolEmpleadoParametroDto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
+            }
+
             bool existeRol = await _rolRepository.ExisteRol(detalleRolEmpleadoParametroDto.IdRol);
             if (!existeRol)
             {
