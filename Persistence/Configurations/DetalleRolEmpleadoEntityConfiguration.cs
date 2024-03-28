@@ -1,11 +1,10 @@
-﻿using System;
-using Domain.Entity;
+﻿using Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configurations
 {
-	public class DetalleRolEmpleadoEntityConfiguration : IEntityTypeConfiguration<DetalleRolEmpleado> 
+    public class DetalleRolEmpleadoEntityConfiguration : IEntityTypeConfiguration<DetalleRolEmpleado> 
     {
 		public DetalleRolEmpleadoEntityConfiguration()
 		{

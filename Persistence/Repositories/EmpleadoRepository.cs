@@ -32,7 +32,15 @@ namespace Persistence.Repositories
         public async Task<Empleado> GetById(int id)
         {
             Empleado empleado = await _ecommerceContext.Empleados
-                .Include(e => e.Empresa)
+                 .Include(e => e.Empresa)
+                .FirstOrDefaultAsync(e => e.Id == id);
+            return empleado;
+        }
+
+        public async Task<Empleado> GetEmpleadoConDetalleRolById(int id)
+        {
+            Empleado empleado = await _ecommerceContext.Empleados
+                .Include(e => e.DetalleRolEmpleado)
                 .FirstOrDefaultAsync(e => e.Id == id);
             return empleado;
         }
@@ -56,7 +64,7 @@ namespace Persistence.Repositories
                     .ToList();
         }
 
-        public async Task<IQueryable<Empleado>> GetQueryable()
+        public IQueryable<Empleado> GetQueryable()
         {
             IQueryable<Empleado> empleado = _ecommerceContext.Empleados.AsQueryable();
             return empleado;

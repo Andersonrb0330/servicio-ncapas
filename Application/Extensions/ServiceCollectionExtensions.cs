@@ -23,6 +23,7 @@ namespace Application.Extensions
             services.AddTransient<IPaisService, PaisService>();
             services.AddTransient<ISeguridadService, SeguridadService>();
             services.AddTransient<IRolService, RolService>();
+            services.AddTransient<IDetalleRolEmpleadoService, DetalleRolEmpleadoService>();
 
             // Aquì damos a enteder que van a trabajar juntos las VALIDACIONES
             services.AddControllersWithViews().AddFluentValidation();
@@ -31,6 +32,8 @@ namespace Application.Extensions
             services.AddTransient<IValidator<EmpresaParametroDto>, EmpresaParametroDtoValidator>();
             services.AddTransient<IValidator<EmpleadoParametroDto>, EmpleadoParametroDtoValidator>();
             services.AddTransient<IValidator<UsuarioParametroDto>, UsuarioParametroDtoValidator>();
+            services.AddTransient<IValidator<RolParametroDto>, RolParametroDtoValidator>();
+            services.AddTransient<IValidator<DetalleRolEmpleadoParametroDto>, DetalleRolEmpleadoDtoValidator>();
         }
     }
 }

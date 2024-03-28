@@ -13,7 +13,8 @@
 		public int IdEmpresa { get; set; }
 		public virtual Empresa Empresa { get; set; }
 
-        public ICollection<DetalleRolEmpleado> DetalleRolEmpleado { get; set; }
+
+		public ICollection<DetalleRolEmpleado> DetalleRolEmpleado { get; set; }
 
         public Empleado()
 		{

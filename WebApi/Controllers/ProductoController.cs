@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers
 {
     [Authorize]
+    [Authorize(Roles = "ADMIN,JEFE")]
     [Route("api/productos")]
     public class ProductoController : Controller
     {

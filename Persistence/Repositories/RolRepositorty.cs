@@ -38,6 +38,12 @@ namespace Persistence.Repositories
         {
             _ecommerceContext.Roles.Remove(rol);
         }
+
+        public async Task<bool> ExisteRol(int id)
+        {
+            bool existeRol = await _ecommerceContext.Roles.AnyAsync(e => e.Id == id);
+            return existeRol;
+        }
     }
 }
 

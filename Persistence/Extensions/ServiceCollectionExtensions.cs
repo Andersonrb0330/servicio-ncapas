@@ -30,6 +30,7 @@ namespace Persistence.Extensions
             services.AddTransient<ITipoProductoRepository, TipoProductoRepository>();
             services.AddTransient<IPaisRepository, PaisRepository>();
             services.AddTransient<IRolRepository, RolRepositorty>();
+            services.AddTransient<IDetalleRolEmpleadoRepository, DetalleRolEmpleadoRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }

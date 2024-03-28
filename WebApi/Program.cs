@@ -31,5 +31,5 @@ app.MapControllers();
 app.Run();
 
 // JWT seguridad
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // Habilitar la autenticación JWT
+app.UseAuthorization(); // Habilitar la autorización basada en roles
